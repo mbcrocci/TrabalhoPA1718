@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg9cardsiege.logic.events;
+package pkg9cardsiege.logic.actions.attack;
+
+import pkg9cardsiege.logic.actions.Action;
 
 /**
  *
  * @author m0nk1w1
  */
-public class TrebuchetEvent extends Event{
+public class Attack extends Action {
     
 }

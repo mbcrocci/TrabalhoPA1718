@@ -9,6 +9,6 @@ package pkg9cardsiege.logic.events;
  *
  * @author m0nk1w1
  */
-public class RegularEvent {
+public class RegularEvent extends Event {
     
 }
