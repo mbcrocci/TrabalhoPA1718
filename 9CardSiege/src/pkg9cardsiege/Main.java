@@ -1,7 +1,7 @@
-// team - remote - pull -> comecar
+// team - remote - pull to upstream -> comecar
 // team - add -> adicionar ficheiros
 // commit-> marcar ponto/guardar versao nova
-// team - remote - push -> enviar mudancas
+// team - remote - push to upstream -> enviar mudancas
 
 package pkg9cardsiege;
 
