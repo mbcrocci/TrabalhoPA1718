@@ -9,6 +9,6 @@ package pkg9cardsiege;
  *
  * @author asus
  */
-public class Interface {
+public interface Interface {
     
 }
