@@ -1,0 +1,37 @@
+[<state> AwaitRoll]
+[<state> AwaitLineCheck]
+[<state> AwaitDraw]
+[<state> AwaitEvent]
+[<state> AwaitMovement]
+[<state> AwaitPlayerAction]
+[<state> AwaitVictoryLoss]
+[<state> AwaitEndTurn]
+[<state> GameOver]
+[<state> Capture]
+
+[AwaitLineCheck] -> [AwaitDraw]
+[AwaitLineCheck] -> [AwaitRoll]
+[AwaitRoll] -> [AwaitDraw]
+[AwaitRoll] -> [Capture]
+[Capture] -> [AwaitDraw]
+
+[AwaitDraw] -> [AwaitEvent]
+
+[AwaitEvent] -> [AwaitMovement]
+[AwaitEvent] -> [AwaitPlayerAction]
+
+[AwaitMovement] -> [AwaitPlayerAction]
+[AwaitMovement] -> [GameOver]
+
+[AwaitPlayerAction] -> [AwaitPlayerAction]
+[AwaitPlayerAction] -> [AwaitRoll]
+[AwaitRoll] -> [AwaitPlayerAction]
+[AwaitPlayerAction] -> [AwaitVictoryLoss]
+[Capture] -> [AwaitVictoryLoss]
+
+[AwaitVictoryLoss] -> [AwaitEndTurn]
+[AwaitVictoryLoss] -> [GameOver]
+
+[AwaitEndTurn] -> [AwaitLineCheck]
+[AwaitEndTurn] -> [Capture]
+[Capture] -> [AwaitEndTurn]
