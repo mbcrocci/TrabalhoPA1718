@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg9cardsiege.logic.states;
+package pkg9cardsiege.logic.cards;
 
 /**
  *
  * @author m0nk1w1
  */
-public class AwaitDraw implements IState {
-    
+public class Card {  
 }

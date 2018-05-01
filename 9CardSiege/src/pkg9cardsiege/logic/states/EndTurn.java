@@ -9,6 +9,6 @@ package pkg9cardsiege.logic.states;
  *
  * @author m0nk1w1
  */
-public class AwaitPlayerAction implements IState {
+public class EndTurn implements IState {
     
 }

@@ -9,6 +9,6 @@ package pkg9cardsiege.logic.states;
  *
  * @author m0nk1w1
  */
-public class AwaitRoll implements IState {
+public class Start implements IState {
     
 }
