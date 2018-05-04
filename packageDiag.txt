@@ -1,0 +1,31 @@
+[<package> logic |
+	[<class> Cube]
+    [<class> Dice]
+    [<class> Game]
+	[<package> actions|
+    	[<class> Action]
+    	[<class> Coupure]
+    	[<class> RallyTroops]
+    	[<class> Sabotage]
+    	[<class> SupplyRaid]
+    	[<class> TunnelMovement]
+    	[<package> attacks|
+        	[<class> Attack]
+        	[<class> ArchersAttack]
+            [<class> BoilingWaterAttack]
+            [<class> CloseCombatAttack]
+        ]
+    ]
+	[<package> cards|
+    	[<class> Card]
+        [<class> EnemyTrackCard]
+        [<class> EventCard]
+        [<class> StatusCard]
+    ]
+    [<package> events|
+    	[<class> Event]
+        [<class> RegularEvent]
+        [<class> TrebuchetEvent]
+    ]
+    [<package> states]
+]

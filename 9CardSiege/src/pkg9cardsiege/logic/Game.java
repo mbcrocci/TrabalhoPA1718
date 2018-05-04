@@ -9,13 +9,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import pkg9cardsiege.logic.cards.Card;
-import pkg9cardsiege.logic.cards.EventCard;
+import pkg9cardsiege.logic.cards.EnemyTrackCard;
+import pkg9cardsiege.logic.cards.StatusCard;
 
 
 public class Game {
     private Dice dice;
+    
+    private StatusCard statusCard;
+    private EnemyTrackCard enemyTrackCard;
+    // card deck from where the player draws his cards
     private ArrayList<Card> deck;
     
+    
+    public Game() {
+        this.dice = new Dice();
+        this.statusCard = new StatusCard();
+        this.enemyTrackCard = new EnemyTrackCard();
+    }
+    
+    public EnemyTrackCard getEnemyTrackCard() {
+        return enemyTrackCard;
+    }
     
     
     public void createDeck() {
@@ -23,7 +38,7 @@ public class Game {
         deck.clear();
         
         // create and add to deck the 7 event cards
-        deck.add(new EventCard());
+        //deck.add(new EventCard());
         
         // maybe not here, instead in game sequence
         shuffleDeck();
