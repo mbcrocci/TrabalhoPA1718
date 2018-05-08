@@ -17,6 +17,8 @@ public class EnemyTrackCard extends Card {
     
     private Track trebuchet;
     
+    //private Integer enemiesInCCA;
+    
     public EnemyTrackCard() {
         super();
         
@@ -49,5 +51,18 @@ public class EnemyTrackCard extends Card {
     
     public void advanceSiegeTower() {
         wall.decrease();
+    }
+    
+    public int getTrebuchets() {
+        return trebuchet.getValue();
+    }
+    
+    public int checkCCA() {
+        int enemiesInCCA = 0;
+        if (wall.getValue() == 0) enemiesInCCA++;
+        if (gates.getValue() == 0) enemiesInCCA++;
+        if (siegeTower.getValue() == 0) enemiesInCCA++;
+        
+        return enemiesInCCA;
     }
 }

@@ -32,6 +32,10 @@ public class Game {
         return enemyTrackCard;
     }
     
+    public StatusCard getStatusCard() {
+        return statusCard;
+    }
+    
     
     public void createDeck() {
         // make sure its empty

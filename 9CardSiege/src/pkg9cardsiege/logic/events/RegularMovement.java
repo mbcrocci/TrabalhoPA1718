@@ -12,16 +12,16 @@ import pkg9cardsiege.logic.cards.EnemyTrackCard;
  *
  * @author m0nk1w1
  */
-public class RegularMovement extends EnemyMovement {
-    private enum trackMovementType {
+enum trackMovementType {
         WALL,
         GATES,
         TREBUCHET,
-    }
-    
+}
+
+public class RegularMovement extends EnemyMovement { 
     private trackMovementType trackMovement;
     
-    public RegularMovement(trackMovementType type) {
+    private RegularMovement(trackMovementType type) {
         super();
         trackMovement = type;
     }
@@ -36,6 +36,6 @@ public class RegularMovement extends EnemyMovement {
             case TREBUCHET: etc.advanceSiegeTower(); break;
         }
         
-        // TODO: check if they went to CCA
+        // TODO: check if they went to CCA (maybe leave it to Game)
     }
 }

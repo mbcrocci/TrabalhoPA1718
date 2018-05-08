@@ -32,6 +32,8 @@ public class Event {
         return description;
     }
     
+    public void apply(Game game) {}
+    
     public void applyEnemyMovement(Game game) {
         EnemyAdvancementOrders.forEach((e) -> { e.apply(game); });
     }
