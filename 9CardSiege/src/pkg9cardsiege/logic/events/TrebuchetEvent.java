@@ -22,9 +22,8 @@ public class TrebuchetEvent extends Event{
 
     @Override
     public void apply(Game game) {
-        EnemyTrackCard etc = game.getEnemyTrackCard();
         StatusCard sc = game.getStatusCard();
-        int trebuchets = etc.getTrebuchets();
+        int trebuchets = game.getEnemyTrackCard().getTrebuchets();
         
         switch (trebuchets) {
             case 3:
@@ -35,9 +34,11 @@ public class TrebuchetEvent extends Event{
                 sc.decreaseWall();
                 break;
             case 1:
-                // roll
-                sc.decreaseWall();
+                int roll = game.getDice().roll();
+                if (roll >= 4)
+                    sc.decreaseWall();
                 break;
+
             default:
                 break;
         }

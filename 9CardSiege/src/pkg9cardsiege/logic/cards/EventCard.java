@@ -5,6 +5,7 @@
  */
 package pkg9cardsiege.logic.cards;
 
+import pkg9cardsiege.logic.Game;
 import pkg9cardsiege.logic.events.Event;
 
 /**
