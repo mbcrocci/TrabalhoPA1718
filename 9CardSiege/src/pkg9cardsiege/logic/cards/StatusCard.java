@@ -10,14 +10,6 @@ package pkg9cardsiege.logic.cards;
  * @author m0nk1w1
  */
 
-enum Tunnel {
-    Castle,
-    TUNNEL1,
-    TUNNEL2,
-    ENEMYLINES,
-};
-
-
 public class StatusCard extends Card {
     
     // Map from Track -> int
@@ -25,7 +17,7 @@ public class StatusCard extends Card {
     private Track morale;
     private Track fortressSupplies;
     
-    private boolean []tunnel;
+    private Tunnel tunnel;
     
     private int supplies;
     
@@ -36,9 +28,7 @@ public class StatusCard extends Card {
         this.morale = new Track(4, 1);
         this.fortressSupplies = new Track(4, 1);
         
-        tunnel = new boolean[4];
-        for (boolean p : tunnel)
-            p = false;
+        this.tunnel = new Tunnel();
 
         supplies = 0;
     }
@@ -59,12 +49,12 @@ public class StatusCard extends Card {
         return supplies;
     }
     
-    public int getTunnel() {
-        for (int i = 0; i < tunnel.length; i++)
-            if (tunnel[i])
-                return i;
-        
-        return 0;
+    public Tunnel getTunnel() {
+        return tunnel;
+    }
+    
+    public int getPosition() {
+        return tunnel.getPosition();
     }
     
     public void increaseWall() {
@@ -87,5 +77,10 @@ public class StatusCard extends Card {
     }
     public void decreaseFortressSupplies() {
         fortressSupplies.decrease();
+    }
+
+    public void decreaseSupplies() {
+        if (supplies > 0)
+            supplies--;
     }
 }

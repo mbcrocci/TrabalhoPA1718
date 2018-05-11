@@ -44,6 +44,7 @@ public class StatusCardTest {
     @Test
     public void testDecreaseWall() {
         System.out.println("decreaseWall");
+        status.increaseWall();
         status.decreaseWall();
         assertEquals(0, status.getWallStrength());
     }
@@ -51,15 +52,25 @@ public class StatusCardTest {
     @Test
     public void testDecreaseMorale() {
         System.out.println("decreaseMorale");
+        status.increaseMorale();
         status.decreaseMorale();
         assertEquals(0, status.getMorale());
     }
 
     @Test
-    public void testDecreaseSupplies() {
-        System.out.println("decreaseSupplies");
+    public void testDecreaseFortressSupplies() {
+        System.out.println("decreaseFortressSupplies");
+        status.increaseFortressSupplies();
         status.decreaseFortressSupplies();
         assertEquals(0, status.getFortressSupplies());
     }
+    
+    @Test
+    public void testDecreaseSupplies() {
+        System.out.println("decreaseSupplies");
+        status.decreaseSupplies();
+        assertEquals(0, status.getSupplies());
+    }
+    
     
 }

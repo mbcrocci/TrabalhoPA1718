@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkg9cardsiege.logic.actions.attack;
+package pkg9cardsiege.logic;
 
 /**
  *
  * @author m0nk1w1
  */
-public class BoilingWaterAttack extends Attack {
-    
+public class Soldier extends Cube {
+    public Soldier() {
+        super();
+    }
 }

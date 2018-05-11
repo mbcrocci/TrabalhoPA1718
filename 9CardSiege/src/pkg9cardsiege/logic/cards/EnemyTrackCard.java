@@ -22,11 +22,21 @@ public class EnemyTrackCard extends Card {
     public EnemyTrackCard() {
         super();
         
-        wall = new Track(4, 4);
-        gates = new Track(4, 4);
-        siegeTower = new Track(4, 4);
+        wall = new Track(4, 4, 2);
+        gates = new Track(4, 4, 3);
+        siegeTower = new Track(4, 4, 4);
         
         trebuchet = new Track(3, 0);
+    }
+    
+    public Track getTrack(int n) {
+        switch (n) {
+            case 0: return wall;
+            case 1: return gates;
+            case 2: return siegeTower;
+        }
+        
+        return null;
     }
 
     public int getWall() {
@@ -57,6 +67,15 @@ public class EnemyTrackCard extends Card {
         return trebuchet.getValue();
     }
     
+    public Boolean inCircleSpace(int trackop) {
+        return inCircleSpace(getTrack(trackop));
+    }
+    
+    public Boolean inCircleSpace(Track track) {
+        return track.getValue() == 1;
+    }
+    
+    
     public int checkCCA() {
         int enemiesInCCA = 0;
         if (wall.getValue() == 0) enemiesInCCA++;
@@ -64,5 +83,9 @@ public class EnemyTrackCard extends Card {
         if (siegeTower.getValue() == 0) enemiesInCCA++;
         
         return enemiesInCCA;
+    }
+
+    public void reduceTrebuchets() {
+        trebuchet.decrease();
     }
 }

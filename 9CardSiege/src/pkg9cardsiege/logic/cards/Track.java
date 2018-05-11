@@ -12,14 +12,26 @@ package pkg9cardsiege.logic.cards;
 public class Track {
     private int size;
     private int value;
+    private int strength;
     
     public Track(int size, int startValue) {
         this.size = size;
         this.value = startValue;
+        this.strength = 0;
+    }
+    
+    public Track(int size, int startValue, int strength) {
+        this.size = size;
+        this.value = startValue;
+        this.strength = strength;
     }
 
     public int getValue() {
         return value;
+    }
+    
+    public int getStrength() {
+        return strength;
     }
     
     public void increase() {
