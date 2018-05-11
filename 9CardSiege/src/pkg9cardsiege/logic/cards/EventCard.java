@@ -5,7 +5,7 @@
  */
 package pkg9cardsiege.logic.cards;
 
-import pkg9cardsiege.logic.Game;
+import java.util.ArrayList;
 import pkg9cardsiege.logic.events.Event;
 
 /**
@@ -15,16 +15,16 @@ import pkg9cardsiege.logic.events.Event;
 public class EventCard extends Card {
     private int number;
     
-    private Event []events;
+    private Event []days;
     
-    public EventCard(int number, Event e1, Event e2, Event e3) {
-        events = new Event[3];
-        events[0] = e1;
-        events[1] = e2;
-        events[2] = e3;
+    public EventCard(int number, Event d1, Event d2, Event d3) {
+        days = new Event[3];
+        days[0] = d1;
+        days[1] = d2;
+        days[2] = d3;
     }
     
     public Event getEvent(int day) {
-        return events[day-1];
+        return days[day-1];
     }
 }

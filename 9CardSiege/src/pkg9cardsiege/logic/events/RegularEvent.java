@@ -1,24 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg9cardsiege.logic.events;
 
-import pkg9cardsiege.logic.Game;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-/**
- *
- * @author m0nk1w1
- */
+
 public class RegularEvent extends Event {
 
-    public RegularEvent() {
-        super();
-    }
-
-    @Override
-    public void apply(Game game) {
+    public RegularEvent(String name, String description, int actionPoints,
+                        EnemyMovement ...ems) {
+        this.name = name;
+        this.description = description;
+        this.actionPointAllowance = actionPoints;
         
+        this.enemyAdvancementOrders = new ArrayList<>();
+        this.enemyAdvancementOrders.addAll(Arrays.asList(ems));
     }
 }

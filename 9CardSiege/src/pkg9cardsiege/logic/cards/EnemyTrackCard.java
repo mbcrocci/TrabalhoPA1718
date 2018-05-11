@@ -88,4 +88,12 @@ public class EnemyTrackCard extends Card {
     public void reduceTrebuchets() {
         trebuchet.decrease();
     }
+
+    public void increaseTrebuchets() {
+        trebuchet.increase();
+    }
+    
+    public void removeSiegeTower() {
+        siegeTower = null;
+    }
 }

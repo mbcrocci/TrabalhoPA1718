@@ -5,16 +5,11 @@
  */
 package pkg9cardsiege.logic.cards;
 
-import java.util.Arrays;
-import pkg9cardsiege.logic.Game;
-import pkg9cardsiege.logic.Soldier;
-
 /**
  *
  * @author m0nk1w1
  */
 public class Tunnel {
-    private Soldier soldiers;
     private int position;
     // Positons:
     // CASTLE      = 0
@@ -25,7 +20,6 @@ public class Tunnel {
     private int freeMov;
     
     public Tunnel() {
-        this.soldiers = new Soldier();
         this.position = 0;
         this.freeMov = 1;
     }
@@ -66,14 +60,5 @@ public class Tunnel {
            } else {
                position = 3;
            }        
-    }
-    
-    public void automaticMovement() {
-        if (position == 1 || position == 2)
-            position = 0;
-        
-        else if (position == 3)
-            // TODO: call capture procedure
-            ;
-    }    
+    }  
 }

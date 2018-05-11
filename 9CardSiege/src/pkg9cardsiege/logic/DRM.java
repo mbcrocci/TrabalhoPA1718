@@ -17,6 +17,7 @@ public enum DRM {
     RAID_ACT,
     
     // drms on attacks
+    LADDERS_ATK,
     BATTERY_RAM_ATK,
     SIEGE_TOWER_ATK,
     SIEGE_ENGINE_ATK,

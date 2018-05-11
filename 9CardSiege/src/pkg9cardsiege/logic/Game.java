@@ -13,11 +13,31 @@ import pkg9cardsiege.logic.cards.EnemyTrackCard;
 import pkg9cardsiege.logic.cards.EventCard;
 import pkg9cardsiege.logic.cards.StatusCard;
 import pkg9cardsiege.logic.cards.Track;
+
 import pkg9cardsiege.logic.events.Event;
+
+import pkg9cardsiege.logic.events.BadWeather;
+import pkg9cardsiege.logic.events.BoilingOil;
+import pkg9cardsiege.logic.events.Collapsed;
+import pkg9cardsiege.logic.events.CoverOfDarkness;
+import pkg9cardsiege.logic.events.DeathOfALeader;
+import pkg9cardsiege.logic.events.DeterminedEnemy;
+import pkg9cardsiege.logic.events.EnemyFatigue;
+import pkg9cardsiege.logic.events.Faith;
+import pkg9cardsiege.logic.events.FlamingArrows;
+import pkg9cardsiege.logic.events.GateFortified;
+import pkg9cardsiege.logic.events.GuardsDistracted;
+import pkg9cardsiege.logic.events.Ilness;
+import pkg9cardsiege.logic.events.IronShields;
+import pkg9cardsiege.logic.events.Rally;
+import pkg9cardsiege.logic.events.RepairedTrebuchet;
+import pkg9cardsiege.logic.events.SuppliesSpoiled;
+import pkg9cardsiege.logic.events.TrebuchetEvent;
+import pkg9cardsiege.logic.events.VolleyOfArrows;
 
 
 public class Game {
-    private int day;
+    private int day = 0;
     
     private int actionPoints = 0;
     
@@ -29,6 +49,7 @@ public class Game {
     private EnemyTrackCard enemyTrackCard;
     // card deck from where the player draws his cards
     private ArrayList<EventCard> deck;
+    private boolean raidAndSabotageOnlyTurn;
     
     
     public Game() {
@@ -53,13 +74,12 @@ public class Game {
     // TODO: make sure this should be here or in main function
     public void run() {
         // Enemy Line Check
-        int roll = dice.roll();
-        
-        // capture procedure
-        if (roll == 1) {
-            // TODO
+        if (statusCard.getTunnel().getPosition() == 3) {
+            int roll = dice.roll();
+            if (roll == 1) {
+                capture();
+            }
         }
-        
         
         // Card Play Phase
         // TODO: change state do Draw
@@ -75,11 +95,29 @@ public class Game {
         // Enemy Movement Phase
         currentEvent.applyEnemyMovement(this);
         
+        // check if there are 3 enemies in CCA => loose
+        if (enemyTrackCard.checkCCA() == 3) {
+            // TODO: change State
+            return;
+        }
+
         // Player Actions
         
         // Victory or Loss Check Phase
+        if (victoryLossCheck()) {
+            // TODO: change state
+            return;
+        }
+        
+        // EndTurn
         
         // End of Day Phase
+        if (deck.isEmpty())
+            endDay();
+        
+        if (day == 3)
+            // TODO: change state
+            return;
     }
     
     // Returns true if any of the conditions to loose apply.
@@ -97,9 +135,9 @@ public class Game {
         
         statusCard.decreaseSupplies();
         
-        int soldierPosition = statusCard.getTunnel().getPosition();
-        if (soldierPosition == 1 || soldierPosition == 2)
-            statusCard.getTunnel().automaticMovement();
+        automaticMovement();
+        
+        day++;
     }
     
     public EnemyTrackCard getEnemyTrackCard() {
@@ -132,17 +170,12 @@ public class Game {
         return false;
     }
     
-    public Boolean useAP(int n) {
-        if (actionPoints - n >= 0) {
-            actionPoints -= n;
-            return true;
-        }
-        
-        return false;
-    }
-    
     public Dice getDice() {
         return dice;
+    }
+    
+    public HashMap<DRM, Integer> getDRMS() {
+        return drms;
     }
     
     public void createDeck() {
@@ -150,10 +183,48 @@ public class Game {
         deck.clear();
         
         // create and add to deck the 7 event cards
-        //deck.add(new EventCard());
-        
-        // maybe not here, instead in game sequence
-        shuffleDeck();
+        deck.add(new EventCard(
+                1,
+                new TrebuchetEvent(),
+                new TrebuchetEvent(),
+                new TrebuchetEvent()
+        ));
+        deck.add(new EventCard(
+                2,
+                new Ilness(),
+                new GuardsDistracted(),
+                new TrebuchetEvent()
+        ));
+        deck.add(new EventCard(
+                3,
+                new SuppliesSpoiled(),
+                new BadWeather(),
+                new BoilingOil()
+        ));
+        deck.add(new EventCard(
+                4,
+                new DeathOfALeader(),
+                new GateFortified(),
+                new FlamingArrows()
+        ));
+        deck.add(new EventCard(
+                5,
+                new VolleyOfArrows(),
+                new Collapsed(),
+                new RepairedTrebuchet()
+        ));
+        deck.add(new EventCard(
+                6,
+                new CoverOfDarkness(),
+                new EnemyFatigue(),
+                new Rally()
+        ));
+        deck.add(new EventCard(
+                7,
+                new DeterminedEnemy(),
+                new IronShields(),
+                new Faith()
+        ));
     }
     
     public void shuffleDeck() {
@@ -166,9 +237,22 @@ public class Game {
     
     // ACTIONS
     
+    // TODO: finish
+    public void aditionalAction() {
+        // choose 
+        int option = 0;
+        
+        if (option == 0)
+            statusCard.decreaseMorale();
+        
+        else if (option == 1)
+            // TODO: check if its FortressSupplies instead
+            statusCard.decreaseSupplies();     
+    }
+    
     public void capture() {
         statusCard.getTunnel().clear();
-        // TODO: raided supplies
+        statusCard.clearSupplies();
         statusCard.decreaseMorale();
     }
     
@@ -183,7 +267,7 @@ public class Game {
         
         // apply drm
         switch(trackOption) {
-            //case 0: roll += drms.get(null); break;
+            case 0: roll += drms.get(DRM.LADDERS_ATK); break;
             case 1: roll += drms.get(DRM.BATTERY_RAM_ATK); break;
             case 2: roll += drms.get(DRM.SIEGE_TOWER_ATK); break;
         }
@@ -210,6 +294,7 @@ public class Game {
         int roll = dice.roll();
         
         switch(trackOption) {
+            case 0: roll += drms.get(DRM.LADDERS_ATK); break;
             case 1: roll += drms.get(DRM.BATTERY_RAM_ATK); break;
             case 2: roll += drms.get(DRM.SIEGE_TOWER_ATK); break;
         }
@@ -274,6 +359,42 @@ public class Game {
         // TODO: roll to get morale drm and spend supplies
     }
     
+        public void supplyRaid() {
+        if (statusCard.getSupplies() == 2)
+            return;
+        
+        // if soldiers are not on enemy lines, return
+        if (statusCard.getTunnel().getPosition() != 3)
+            return;
+        
+        int roll = dice.roll() + drms.get(DRM.RAID_ACT);
+        
+        if (roll == 6) {
+            statusCard.increaseSupplies();
+            statusCard.increaseSupplies();
+            
+        } else if (2 < roll && roll < 6) {
+            statusCard.increaseSupplies();
+            
+        } else if (roll == 1) {
+            capture();
+        }
+    }
+    
+    public void sabotage() {
+        // if no unit on Enemy Lines
+        if (statusCard.getTunnel().getPosition() != 3)
+            return;
+        
+        int roll = dice.roll() + drms.get(DRM.SABOTAGE_ACT);
+        
+        if (roll == 1)
+            capture();
+            
+        else if (roll > 4)
+            enemyTrackCard.reduceTrebuchets();
+        
+    }
     
     
     // Actions that operate with Tunnel
@@ -290,38 +411,22 @@ public class Game {
         }
     }
     
-    public void supplyRaid() {
-        if (statusCard.getSupplies() == 2)
-            return;
-        
-        // if soldiers are not on enemy lines, return
-        if (statusCard.getTunnel().getPosition() != 3)
-            return;
-        
-        int roll = dice.roll();
-        
-        if (roll == 6) {
-            // raid 2 supplies
-        } else if (2 < roll && roll < 6) {
-            // raid 1 supply
-        } else if (roll == 1) {
-            // capture
+    private void automaticMovement() {
+        int pos = statusCard.getTunnel().getPosition();
+        if (pos == 1 || pos == 2) {
+            statusCard.addSupplies();
+            statusCard.getTunnel().clear();
+            
+        } else if (pos == 3) {
+            capture();
         }
     }
-    
-    public void sabotage() {
-        // if no unit on Enemy Lines
-        if (statusCard.getTunnel().getPosition() != 3)
-            return;
-        
-        int roll = dice.roll() + drms.get(DRM.SABOTAGE_ACT);
-        
-        if (roll == 1)
-            // capture
-            
-        
-        else if (roll > 4)
-            enemyTrackCard.reduceTrebuchets();
-        
+
+    public void raidAndSabotageOnlyTurn() {
+        raidAndSabotageOnlyTurn = true; 
+    }
+
+    public void removeSiegeTower() {
+        enemyTrackCard.removeSiegeTower();
     }
 }

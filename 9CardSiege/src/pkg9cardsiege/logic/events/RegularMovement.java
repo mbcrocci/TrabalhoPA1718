@@ -1,36 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg9cardsiege.logic.events;
 
 import pkg9cardsiege.logic.Game;
 import pkg9cardsiege.logic.cards.EnemyTrackCard;
 
-/**
- *
- * @author m0nk1w1
- */
-enum trackMovementType {
-        WALL,
-        GATES,
-        TREBUCHET,
-}
 
 public class RegularMovement extends EnemyMovement { 
-    private trackMovementType trackMovement;
+    public static final int WALL      = 0;
+    public static final int GATES     = 1;
+    public static final int TREBUCHET = 2;
     
-    private RegularMovement(trackMovementType type) {
-        super();
-        trackMovement = type;
+    private final int trackMovementType;
+    
+    public RegularMovement(int type) {
+        trackMovementType = type;
     }
     
     @Override
     public void apply(Game game) {
         EnemyTrackCard etc = game.getEnemyTrackCard();
         
-        switch (trackMovement) {
+        switch (trackMovementType) {
             case WALL: etc.advanceWall(); break;
             case GATES: etc.advanceGates(); break;
             case TREBUCHET: etc.advanceSiegeTower(); break;

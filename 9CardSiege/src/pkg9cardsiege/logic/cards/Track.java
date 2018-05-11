@@ -33,10 +33,15 @@ public class Track {
     public int getStrength() {
         return strength;
     }
-    
+        
     public void increase() {
         if (value < size)
             value++;
+    }
+    
+    public void increase(int n) {
+        for (int i = 0; i < n; i++)
+            increase();
     }
     
     public void decrease() {

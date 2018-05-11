@@ -5,22 +5,26 @@
  */
 package pkg9cardsiege.logic.events;
 
+import java.util.ArrayList;
 import pkg9cardsiege.logic.Game;
-import pkg9cardsiege.logic.cards.EnemyTrackCard;
 import pkg9cardsiege.logic.cards.StatusCard;
 
 /**
  *
  * @author m0nk1w1
  */
-public class TrebuchetEvent extends Event{
+public class TrebuchetEvent extends Event {
     public TrebuchetEvent() {
-        super();
-        
-        EnemyAdvancementOrders.add(new NoEnemyMovement());
+        this.name = new String("Trebuchet Attack");
+        this.description = new String(
+                "3 trebuchets - 2 dmg to wall\n" +
+                "2 trebuchets - 1 dmg to wall\n" +
+                "1 trebuchets - 1 dmg to wall on D6 roll of 4, 5 or 6\n"
+        );
+        enemyAdvancementOrders = new ArrayList<>();
     }
 
-    @Override
+   // @Override
     public void apply(Game game) {
         StatusCard sc = game.getStatusCard();
         int trebuchets = game.getEnemyTrackCard().getTrebuchets();

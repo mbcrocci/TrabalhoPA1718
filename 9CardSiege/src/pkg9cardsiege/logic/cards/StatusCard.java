@@ -68,6 +68,11 @@ public class StatusCard extends Card {
         fortressSupplies.increase();
     }
     
+    public void increaseSupplies() {
+        if (supplies < 2)
+            supplies++;
+    }
+    
     public void decreaseWall() {
         wallStrength.decrease();
     }
@@ -80,7 +85,21 @@ public class StatusCard extends Card {
     }
 
     public void decreaseSupplies() {
-        if (supplies > 0)
+        if (supplies > 0) {
             supplies--;
+            
+            if (supplies == 0)
+                addSupplies();
+        }
+        
+
+    }
+
+    public void clearSupplies() {
+        supplies = 0;
+    }
+
+    public void addSupplies() {
+        fortressSupplies.increase(supplies);
     }
 }

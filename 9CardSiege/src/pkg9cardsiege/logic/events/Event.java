@@ -10,15 +10,14 @@ import pkg9cardsiege.logic.Game;
 
 /**
  *
- * @author m0nk1w1
+ * @author mbcro
  */
 public class Event {
-    public int actionPointAllowance;
-    
-    public String name;
-    public String description;
-    
-    public ArrayList<EnemyMovement> EnemyAdvancementOrders;
+    protected String name;
+    protected String description;
+    protected int actionPointAllowance;
+
+    protected ArrayList<EnemyMovement> enemyAdvancementOrders;
 
     public int getActionPointAllowance() {
         return actionPointAllowance;
@@ -32,9 +31,13 @@ public class Event {
         return description;
     }
     
+    public ArrayList<EnemyMovement> getEnemyMovements() {
+        return enemyAdvancementOrders;
+    }
+    
     public void apply(Game game) {}
     
     public void applyEnemyMovement(Game game) {
-        EnemyAdvancementOrders.forEach((e) -> { e.apply(game); });
+        enemyAdvancementOrders.forEach((e) -> { e.apply(game); });
     }
 }
