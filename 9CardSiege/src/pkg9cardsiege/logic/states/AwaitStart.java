@@ -9,12 +9,21 @@ import pkg9cardsiege.logic.Game;
 
 /**
  *
- * @author m0nk1w1
+ * @author mbcro
  */
-public class GameOver extends StateAdapter {
+public class AwaitStart extends StateAdapter {
     
-    public GameOver(Game game) {
+    public AwaitStart(Game game) {
         super(game);
     }
     
+    @Override
+    public IState start() {
+        getGame().createDeck();
+        getGame().shuffleDeck();
+        
+        getGame().setupTurn();
+        
+        return new AwaitDraw(getGame());
+    }
 }

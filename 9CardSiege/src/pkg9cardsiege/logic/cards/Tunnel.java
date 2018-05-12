@@ -17,11 +17,8 @@ public class Tunnel {
     // TUNNEL2     = 2
     // EnemmyLines = 3
     
-    private int freeMov;
-    
     public Tunnel() {
         this.position = 0;
-        this.freeMov = 1;
     }
     
     public int getPosition() {
@@ -44,21 +41,13 @@ public class Tunnel {
             position--;
     }
     
-    public void freeMovement() {
-        if (freeMov > 0) {
-            advance();
-            freeMov = 0;
-        }
-    }
-    
     // This action can only be performed if there are ActionPoints to be used
     // This check should be performed before using this funciton
-    public void fastMovement() {
-           if (position == 1) {
-               position = 2;
-               
-           } else {
-               position = 3;
-           }        
+    public void exitTunnel() {
+        position = 3;
     }  
+    
+    public Boolean inTunnel() {
+        return (position == 1 || position == 2);
+    }
 }
