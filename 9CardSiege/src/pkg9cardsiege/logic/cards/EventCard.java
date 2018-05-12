@@ -5,7 +5,6 @@
  */
 package pkg9cardsiege.logic.cards;
 
-import java.util.ArrayList;
 import pkg9cardsiege.logic.events.Event;
 
 /**
@@ -25,6 +24,6 @@ public class EventCard extends Card {
     }
     
     public Event getEvent(int day) {
-        return days[day-1];
+        return days[day];
     }
 }

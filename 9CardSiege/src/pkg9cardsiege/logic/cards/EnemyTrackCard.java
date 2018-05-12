@@ -22,11 +22,11 @@ public class EnemyTrackCard extends Card {
     public EnemyTrackCard() {
         super();
         
-        wall = new Track(4, 4, 2);
-        gates = new Track(4, 4, 3);
-        siegeTower = new Track(4, 4, 4);
+        wall = new Track("Wall", 5, 4, 2);
+        gates = new Track("Gates", 5, 4, 3);
+        siegeTower = new Track("Siege Tower", 5, 4, 4);
         
-        trebuchet = new Track(3, 0);
+        trebuchet = new TrebuchetCount();
     }
     
     public Track getTrack(int n) {
@@ -95,5 +95,20 @@ public class EnemyTrackCard extends Card {
     
     public void removeSiegeTower() {
         siegeTower = null;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("\n-------ENEMY TRACK CARD------\n");
+        sb.append(wall.toString()).append("\n");
+        sb.append(gates.toString()).append("\n");
+        sb.append(siegeTower.toString()).append("\n");
+        sb.append(trebuchet.toString()).append("\n");
+        
+        sb.append("-----------------------------\n");
+
+        return sb.toString();
     }
 }

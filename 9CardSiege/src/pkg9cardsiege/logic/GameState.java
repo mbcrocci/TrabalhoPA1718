@@ -26,7 +26,7 @@ public class GameState {
     }
     
     public void setState(IState state) {
-        
+        this.state = state;
     }
     
     @Override

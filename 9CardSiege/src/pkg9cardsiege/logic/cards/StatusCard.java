@@ -24,9 +24,9 @@ public class StatusCard extends Card {
     public StatusCard() {
         super();
         
-        this.wallStrength = new Track(4, 1);
-        this.morale = new Track(4, 1);
-        this.fortressSupplies = new Track(4, 1);
+        this.wallStrength = new Track("Wall Strength", 5, 4);
+        this.morale = new Track("Morale", 5, 4);
+        this.fortressSupplies = new Track("Fortress Supplies", 5, 4);
         
         this.tunnel = new Tunnel();
 
@@ -91,8 +91,6 @@ public class StatusCard extends Card {
             if (supplies == 0)
                 addSupplies();
         }
-        
-
     }
 
     public void clearSupplies() {
@@ -101,5 +99,22 @@ public class StatusCard extends Card {
 
     public void addSupplies() {
         fortressSupplies.increase(supplies);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("\n------- STATUS CARD ------\n");
+        sb.append(wallStrength.toString()).append("\n");
+        sb.append(morale.toString()).append("\n");
+        sb.append(fortressSupplies.toString()).append("\n");
+        
+        sb.append("\n").append(tunnel.toString()).append("\n");
+        
+        sb.append("Supplies: ").append(supplies).append("\n");
+        sb.append("--------------------------\n");
+
+        return sb.toString();
     }
 }

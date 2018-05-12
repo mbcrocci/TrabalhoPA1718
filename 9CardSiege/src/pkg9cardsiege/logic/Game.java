@@ -12,9 +12,7 @@ import java.util.HashMap;
 import pkg9cardsiege.logic.cards.EnemyTrackCard;
 import pkg9cardsiege.logic.cards.EventCard;
 import pkg9cardsiege.logic.cards.StatusCard;
-import pkg9cardsiege.logic.cards.Track;
 
-import pkg9cardsiege.logic.events.Event;
 import pkg9cardsiege.logic.events.BadWeather;
 import pkg9cardsiege.logic.events.BoilingOil;
 import pkg9cardsiege.logic.events.Collapsed;
@@ -71,6 +69,7 @@ public class Game {
         drms.put(DRM.CLOSE_COMBAT_ATK, 0);
         drms.put(DRM.CIRLCE_SPACES_ATK, 0);
         
+        deck = new ArrayList<>();
     }
     
     // Returns true if any of the conditions to loose apply.
@@ -303,5 +302,17 @@ public class Game {
 
     public void save() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(statusCard.toString());
+        sb.append(enemyTrackCard.toString());
+        
+        sb.append("Action Points: ").append(actionPoints).append("\n");
+
+        return sb.toString();
     }
 }

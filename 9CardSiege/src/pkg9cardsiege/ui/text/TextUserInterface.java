@@ -5,6 +5,7 @@ import pkg9cardsiege.logic.GameState;
 import pkg9cardsiege.logic.states.AwaitActionChoice;
 import pkg9cardsiege.logic.states.AwaitDraw;
 import pkg9cardsiege.logic.states.AwaitStart;
+import pkg9cardsiege.logic.states.AwaitTunnelMovChoice;
 import pkg9cardsiege.logic.states.GameOver;
 
 public class TextUserInterface {
@@ -23,6 +24,8 @@ public class TextUserInterface {
     public void run() {
         while (!(gameState.getState() instanceof GameOver)) {
             
+            System.out.println(gameState.toString());
+            
             if (gameState.getState() instanceof AwaitStart)
                 getUserInputWhileAwaitingStart();
             
@@ -31,7 +34,9 @@ public class TextUserInterface {
             
             else if(gameState.getState() instanceof AwaitActionChoice)
                 getUserInputWhileAwaitingActionChoice();
-           
+            
+            else if (gameState.getState() instanceof AwaitTunnelMovChoice)
+                getUserInputWhileTunnelMovementChoice();
         }
     }
     
@@ -56,6 +61,8 @@ public class TextUserInterface {
             scanner.next();
         
         value = scanner.nextInt();
+        
+        System.out.println("DEBUG: value = " + value);
         
         switch (value) {
             case 1: gameState.start();
@@ -148,7 +155,7 @@ public class TextUserInterface {
         return value;
     }
     
-    private void getInputWhileTunnelMovementChoice() {
+    private void getUserInputWhileTunnelMovementChoice() {
         int value;
         
         System.out.println("1 - Enter Tunnel (1 AP)");
