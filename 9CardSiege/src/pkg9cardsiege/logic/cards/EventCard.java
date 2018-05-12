@@ -26,4 +26,16 @@ public class EventCard extends Card {
     public Event getEvent(int day) {
         return days[day];
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("-------- EVENT CARD ---------").append("\n");
+        
+        for(Event e: days)
+            sb.append(e);
+        
+        return sb.toString();
+    }
 }

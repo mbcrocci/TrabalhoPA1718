@@ -27,6 +27,16 @@ public class TextUserInterface {
     public void run() {
         while (!(gameState.getState() instanceof GameOver)) {
             
+            if (gameState.getMessages().size() > 0) {
+                System.out.println("");
+                
+                gameState.getMessages().forEach((msg) -> {
+                    System.out.println("--> " + msg);
+                });
+                
+                gameState.clearMessages();
+            }
+            
             System.out.println(gameState.toString());
             
             if (gameState.getState() instanceof AwaitStart)

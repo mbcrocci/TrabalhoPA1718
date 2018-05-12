@@ -40,4 +40,17 @@ public class Event {
     public void applyEnemyMovement(Game game) {
         enemyAdvancementOrders.forEach((e) -> { e.apply(game); });
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        sb  .append("----- ")
+            .append(name).append(": ")
+            .append(actionPointAllowance)
+            .append(" -----").append("\n")
+            .append(description).append("\n");
+        
+        return sb.toString();
+    }
 }

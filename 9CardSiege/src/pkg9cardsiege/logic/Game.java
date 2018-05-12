@@ -51,6 +51,7 @@ public class Game {
     private ArrayList<EventCard> deck;
     private boolean raidAndSabotageOnlyTurn;
     
+    private ArrayList<String> messages;
     
     public Game() {
         this.dice = new Dice();
@@ -70,6 +71,7 @@ public class Game {
         drms.put(DRM.CIRLCE_SPACES_ATK, 0);
         
         deck = new ArrayList<>();
+        messages = new ArrayList<>();
     }
     
     // Returns true if any of the conditions to loose apply.
@@ -150,6 +152,18 @@ public class Game {
     
     public HashMap<DRM, Integer> getDRMS() {
         return drms;
+    }
+    
+    public void addMessage(String msg) {
+        messages.add(msg);
+    }
+    
+    public ArrayList<String> getMessages() {
+        return messages;
+    }
+    
+    public void clearMessages() {
+        messages.clear();
     }
     
     public void createDeck() {

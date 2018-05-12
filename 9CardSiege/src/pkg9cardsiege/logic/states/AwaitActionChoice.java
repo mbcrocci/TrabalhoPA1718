@@ -32,6 +32,8 @@ public class AwaitActionChoice extends StateAdapter {
         if (getGame().getEnemyTrackCard().inCircleSpace(track))
             roll += getGame().getDRMS().get(DRM.CIRLCE_SPACES_ATK);
         
+        getGame().addMessage("Roll: " + roll);
+        
         // if roll bigger that trackStrength
         if (roll > track.getStrength())
             track.decrease();
@@ -66,7 +68,7 @@ public class AwaitActionChoice extends StateAdapter {
         
         // apply automatic drm
         roll++;
-        
+        getGame().addMessage("Roll: " + roll);
         if (roll > track.getStrength())
             track.decrease();
         
@@ -99,6 +101,7 @@ public class AwaitActionChoice extends StateAdapter {
         
             roll += getGame().getDRMS().get(DRM.CLOSE_COMBAT_ATK);
         
+            getGame().addMessage("Roll: " + roll);
             if (roll > track.getStrength())
                 track.decrease();
         }

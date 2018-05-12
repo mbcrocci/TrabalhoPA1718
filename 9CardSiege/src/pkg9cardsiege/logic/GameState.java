@@ -1,5 +1,6 @@
 package pkg9cardsiege.logic;
 
+import java.util.ArrayList;
 import pkg9cardsiege.logic.states.AwaitStart;
 import pkg9cardsiege.logic.states.IState;
 
@@ -27,6 +28,14 @@ public class GameState {
     
     public void setState(IState state) {
         this.state = state;
+    }
+    
+    public ArrayList<String> getMessages() {
+        return game.getMessages();
+    }
+    
+    public void clearMessages() {
+        game.clearMessages();
     }
     
     @Override
