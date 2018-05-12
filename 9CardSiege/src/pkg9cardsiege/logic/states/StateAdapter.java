@@ -36,12 +36,12 @@ public class StateAdapter implements IState {
     }
     
     @Override
-    public IState archersAttack(int trackOption) {
+    public IState archersAttack() {
         return this;
     }
     
     @Override
-    public IState boilingWaterAttack(int trackOption) {
+    public IState boilingWaterAttack() {
         return this;
     }
     
@@ -108,6 +108,11 @@ public class StateAdapter implements IState {
 
     @Override
     public IState fastMovement() {
+        return this;
+    }
+    
+    @Override
+    public IState selectTrack(int track) {
         return this;
     }
 }

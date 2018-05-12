@@ -221,6 +221,10 @@ public class Game {
         trackChoice = t;
     }
     
+    public int getTrackChoice() {
+        return trackChoice;
+    }
+    
     
     // TODO: finish
     public void aditionalAction(int option) {

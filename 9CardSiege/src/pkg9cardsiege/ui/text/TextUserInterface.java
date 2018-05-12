@@ -5,12 +5,15 @@ import pkg9cardsiege.logic.GameState;
 import pkg9cardsiege.logic.states.AwaitActionChoice;
 import pkg9cardsiege.logic.states.AwaitDraw;
 import pkg9cardsiege.logic.states.AwaitStart;
+import pkg9cardsiege.logic.states.AwaitTrackSelection;
 import pkg9cardsiege.logic.states.AwaitTunnelMovChoice;
 import pkg9cardsiege.logic.states.GameOver;
 
 public class TextUserInterface {
     private GameState gameState;
     private Scanner scanner;
+    
+    private Boolean trackSelected = false;
     
     public TextUserInterface(GameState gameState) {
         this.gameState = gameState;
@@ -37,6 +40,9 @@ public class TextUserInterface {
             
             else if (gameState.getState() instanceof AwaitTunnelMovChoice)
                 getUserInputWhileTunnelMovementChoice();
+            
+            else if (gameState.getState() instanceof AwaitTrackSelection)
+                getUserInputWhileAwaitngTrackSelection();
         }
     }
     
@@ -91,12 +97,18 @@ public class TextUserInterface {
         
         value = scanner.nextInt();
         
+        if (value == 1 || value == 2)
+            if (!trackSelected) {
+                gameState.setState(new AwaitTrackSelection(gameState.getGame()));
+                return;
+            }
+
         switch (value) {
             case 1:
-                gameState.archersAttack(chooseTrack());
+                gameState.archersAttack();
                 break;
             case 2:
-                gameState.boilingWaterAttack(chooseTrack());
+                gameState.boilingWaterAttack();
                 break;
             case 3:
                 gameState.closeCombat();
@@ -126,6 +138,10 @@ public class TextUserInterface {
                 gameState.save();
                 break;
         } 
+        
+        // if it reached here it already performed the attack
+        // so, we can reset track selection
+        trackSelected = false;
     }
     
     private Boolean applyDRM() {
@@ -139,7 +155,7 @@ public class TextUserInterface {
         return s.equalsIgnoreCase("Y") || s.equalsIgnoreCase("S");
     }
     
-    private int chooseTrack() {
+    private void getUserInputWhileAwaitngTrackSelection() {
         int value;
         
         System.out.println("1 - Wall");
@@ -152,7 +168,7 @@ public class TextUserInterface {
         
         value = scanner.nextInt();
         
-        return value;
+        gameState.selectTrack(value);
     }
     
     private void getUserInputWhileTunnelMovementChoice() {

@@ -12,14 +12,16 @@ public class AwaitActionChoice extends StateAdapter {
     }
     
     @Override
-    public IState archersAttack(int trackOption) {
-        Track track = getGame().getEnemyTrackCard().getTrack(trackOption);
+    public IState archersAttack() {
+        Track track = getGame().getEnemyTrackCard().getTrack(
+                getGame().getTrackChoice()
+        );
 
         // roll
         int roll = getGame().getDice().roll();
         
         // apply drm
-        switch(trackOption) {
+        switch(getGame().getTrackChoice()) {
             case 0: roll += getGame().getDRMS().get(DRM.LADDERS_ATK); break;
             case 1: roll += getGame().getDRMS().get(DRM.BATTERY_RAM_ATK); break;
             case 2: roll +=getGame().getDRMS().get(DRM.SIEGE_TOWER_ATK); break;
@@ -39,15 +41,17 @@ public class AwaitActionChoice extends StateAdapter {
     }
     
     @Override
-    public IState boilingWaterAttack(int trackOption) {
-        Track track = getGame().getEnemyTrackCard().getTrack(trackOption);
+    public IState boilingWaterAttack() {
+        Track track = getGame().getEnemyTrackCard().getTrack(
+                getGame().getTrackChoice()
+        );
         
         if (!getGame().getEnemyTrackCard().inCircleSpace(track))
             return this;
         
         int roll = getGame().getDice().roll();
         
-        switch(trackOption) {
+        switch(getGame().getTrackChoice()) {
             case 0: roll += getGame().getDRMS().get(DRM.LADDERS_ATK); break;
             case 1: roll += getGame().getDRMS().get(DRM.BATTERY_RAM_ATK); break;
             case 2: roll += getGame().getDRMS().get(DRM.SIEGE_TOWER_ATK); break;

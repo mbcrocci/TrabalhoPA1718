@@ -46,12 +46,12 @@ public class GameState {
     
     // -------- Player Action methods ------
     
-    public void archersAttack(int trackOption) {
-        setState(getState().archersAttack(trackOption));
+    public void archersAttack() {
+        setState(getState().archersAttack());
     }
     
-    public void boilingWaterAttack(int trackOption) {
-        setState(getState().boilingWaterAttack(trackOption));
+    public void boilingWaterAttack() {
+        setState(getState().boilingWaterAttack());
     }
     
     public void closeCombat() {
@@ -110,4 +110,8 @@ public class GameState {
     public void fastMovement() {
         setState(getState().fastMovement());
     }    
+    
+    public void selectTrack(int track) {
+        setState(getState().selectTrack(track));
+    }
 }
