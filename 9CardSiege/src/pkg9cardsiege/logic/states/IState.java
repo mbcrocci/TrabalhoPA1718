@@ -4,20 +4,18 @@ public interface IState {
     public IState start();
     public IState finish();
     
-    
     public IState draw();
-    public IState chooseTrack(int track);
-    public IState chooseTunnelMovement();
     
-    public IState archersAttack();
-    public IState boilingWaterAttack();
+    public IState archersAttack(int track);
+    public IState boilingWaterAttack(int track);
     public IState closeCombat();
     public IState coupure();
-    public IState rallyTroops();
+    public IState rallyTroops(Boolean applyDRM);
     public IState supplyRaid();
     public IState sabotage();
     public IState tunnelMovement();
 
+    public IState additionalAction();
     public IState endTurn();    
     public IState save();
     

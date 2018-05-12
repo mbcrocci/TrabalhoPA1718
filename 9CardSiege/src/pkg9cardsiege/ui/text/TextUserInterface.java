@@ -59,7 +59,7 @@ public class TextUserInterface {
         
         switch (value) {
             case 1: gameState.start();
-            case 2: gameState.resume();
+            //case 2: gameState.resume();
         }
     }
     
@@ -74,7 +74,8 @@ public class TextUserInterface {
         System.out.println("6 - Tunnel Movement");
         System.out.println("7 - Supply Raid");
         System.out.println("8 - Sabotage");
-        System.out.println("9 - End Turn");
+        System.out.println("9 - Additional Action");
+        System.out.println("10 - End Turn");
         System.out.println("0 - Save Game");
         System.out.println(">> ");
         
@@ -85,10 +86,10 @@ public class TextUserInterface {
         
         switch (value) {
             case 1:
-                gameState.archersAttack();
+                gameState.archersAttack(chooseTrack());
                 break;
             case 2:
-                gameState.boilingWaterAttack();
+                gameState.boilingWaterAttack(chooseTrack());
                 break;
             case 3:
                 gameState.closeCombat();
@@ -97,7 +98,7 @@ public class TextUserInterface {
                 gameState.coupure();
                 break;
             case 5:
-                gameState.rallyTroops();
+                gameState.rallyTroops(applyDRM());
                 break;
             case 6:
                 gameState.tunnelMovement();
@@ -109,6 +110,9 @@ public class TextUserInterface {
                 gameState.sabotage();
                 break;
             case 9:
+                gameState.additionalAction();
+                break;
+            case 10:
                 gameState.endTurn();
                 break;
             case 0:
@@ -117,7 +121,18 @@ public class TextUserInterface {
         } 
     }
     
-    private void getInputWhileAwaitingTrackChoice() {
+    private Boolean applyDRM() {
+        System.out.println("Do you wish to spend 1 supply to applay +1 DRM in moralle roll?");
+        System.out.println(">> ");
+        
+        while (!scanner.hasNextLine())
+            scanner.next();
+        
+        String s = scanner.nextLine();
+        return s.equalsIgnoreCase("Y") || s.equalsIgnoreCase("S");
+    }
+    
+    private int chooseTrack() {
         int value;
         
         System.out.println("1 - Wall");
@@ -130,7 +145,7 @@ public class TextUserInterface {
         
         value = scanner.nextInt();
         
-        gameState.setTrackChoice(value);
+        return value;
     }
     
     private void getInputWhileTunnelMovementChoice() {

@@ -73,15 +73,6 @@ public class Game {
         
     }
     
-    public void start() {
-        createDeck();
-        shuffleDeck();
-         
-        setupTurn();
-    }
-
-
-    
     // Returns true if any of the conditions to loose apply.
     // In that case the game should modify its state and end itself.
     public Boolean victoryLossCheck() {
@@ -94,6 +85,7 @@ public class Game {
     public void setupTurn() {
         freeTunnelMov = true;
         clearDRMS();
+        actionPoints = 0;
         
         // Enemy Line Check
         if (statusCard.getTunnel().getPosition() == 3) {
@@ -230,7 +222,6 @@ public class Game {
         trackChoice = t;
     }
     
-    // ACTIONS
     
     // TODO: finish
     public void aditionalAction(int option) {
@@ -309,4 +300,8 @@ public class Game {
     public void removeSiegeTower() {
         enemyTrackCard.removeSiegeTower();
     }  
+
+    public void save() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

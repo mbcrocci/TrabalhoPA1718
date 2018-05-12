@@ -42,23 +42,16 @@ public class GameState {
     public void draw() {
         setState(getState().draw());
     }
-    
-    public void chooseTrack(int track) {
-        setState(getState().chooseTrack(track));
-    }
-    
-    public void chooseTunnelMovement() {
-        setState(getState().chooseTunnelMovement());
-    }
+
     
     // -------- Player Action methods ------
     
-    public void archersAttack() {
-        setState(getState().archersAttack());
+    public void archersAttack(int trackOption) {
+        setState(getState().archersAttack(trackOption));
     }
     
-    public void boilingWaterAttack() {
-        setState(getState().boilingWaterAttack());
+    public void boilingWaterAttack(int trackOption) {
+        setState(getState().boilingWaterAttack(trackOption));
     }
     
     public void closeCombat() {
@@ -69,8 +62,8 @@ public class GameState {
         setState(getState().coupure());
     }
     
-    public void rallyTroops() {
-       setState(getState().rallyTroops());
+    public void rallyTroops(Boolean applyDRM) {
+       setState(getState().rallyTroops(applyDRM));
     }
     
     public void supplyRaid() {
@@ -81,6 +74,9 @@ public class GameState {
         setState(getState().sabotage());
     }
     
+    public void additionalAction() {
+        setState(getState().additionalAction());
+    }
     
     public void endTurn() {
         setState(getState().endTurn());

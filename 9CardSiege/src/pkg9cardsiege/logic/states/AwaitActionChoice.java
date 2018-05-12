@@ -12,9 +12,7 @@ public class AwaitActionChoice extends StateAdapter {
     }
     
     @Override
-    public IState archersAttack() {
-        // choose track to attack
-        int trackOption = 0; // TODO: actually get a choice
+    public IState archersAttack(int trackOption) {
         Track track = getGame().getEnemyTrackCard().getTrack(trackOption);
 
         // roll
@@ -41,8 +39,7 @@ public class AwaitActionChoice extends StateAdapter {
     }
     
     @Override
-    public IState boilingWaterAttack() {
-        int trackOption = 0;// choose track to attack
+    public IState boilingWaterAttack(int trackOption) {
         Track track = getGame().getEnemyTrackCard().getTrack(trackOption);
         
         if (!getGame().getEnemyTrackCard().inCircleSpace(track))
@@ -115,10 +112,15 @@ public class AwaitActionChoice extends StateAdapter {
     }
     
     @Override
-    public IState rallyTroops() {
-        // TODO: change state to spend supplies
+    public IState rallyTroops(Boolean applyDRM) {
+        int roll = 0;
         
-        int roll = getGame().getDice().roll() + getGame().getDRMS().get(DRM.MORALE_ACT);
+        if (applyDRM) {
+            getGame().getStatusCard().getFortressSupplies();
+            roll = getGame().getDRMS().get(DRM.MORALE_ACT);
+        }
+        
+        roll += getGame().getDice().roll();
         
         if (roll > 4)
             getGame().getStatusCard().increaseMorale();
@@ -184,6 +186,11 @@ public class AwaitActionChoice extends StateAdapter {
         
         getGame().setupTurn();
         return new AwaitDraw(getGame());
+    }
+    
+    @Override
+    public IState additionalAction() {
+        return this;
     }
     
     @Override

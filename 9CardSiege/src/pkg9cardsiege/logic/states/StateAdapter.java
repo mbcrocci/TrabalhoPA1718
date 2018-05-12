@@ -34,24 +34,14 @@ public class StateAdapter implements IState {
     public IState draw() {
         return this;
     }
-
+    
     @Override
-    public IState chooseTrack(int track) {
-        return this;
-    }
-
-    @Override
-    public IState chooseTunnelMovement() {
+    public IState archersAttack(int trackOption) {
         return this;
     }
     
     @Override
-    public IState archersAttack() {
-        return this;
-    }
-    
-    @Override
-    public IState boilingWaterAttack() {
+    public IState boilingWaterAttack(int trackOption) {
         return this;
     }
     
@@ -66,7 +56,7 @@ public class StateAdapter implements IState {
     }
     
     @Override
-    public IState rallyTroops() {
+    public IState rallyTroops(Boolean applyDRM) {
         return this;
     }
     
@@ -87,6 +77,11 @@ public class StateAdapter implements IState {
     
     @Override
     public IState tunnelMovement() {
+        return this;
+    }
+    
+    @Override
+    public IState additionalAction() {
         return this;
     }
     
