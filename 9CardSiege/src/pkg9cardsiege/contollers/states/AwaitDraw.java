@@ -19,10 +19,10 @@ public class AwaitDraw extends StateAdapter {
     @Override
     public IState draw() {
         EventCard card = game.drawCard();
-        game.addMessage("Drawn Card: " + card.toString());
+        game.addMessage("Drawn Card:\n" + card.toString());
         
         Event currentEvent = card.getEvent(game.getDay());
-        game.addMessage("Applied Event: " + currentEvent.toString());
+        game.addMessage("Applied Event:\n" + currentEvent.toString());
         
         // add action points
         game.addAP(currentEvent.getActionPointAllowance());

@@ -17,7 +17,7 @@ public interface IState {
     
     public IState selectTrack(int t);
 
-    public IState additionalAction();
+    public IState additionalAction(int op);
     public IState endTurn();    
     public IState save();
     

@@ -96,10 +96,13 @@ public class TextUserInterface {
     }
     
     private void getUserInputWhileAwaitingDraw() {
-        System.out.println("Press any key to draw card!");
+        System.out.println("Press any number to draw card!");
         System.out.println(">> ");
         
-        scanner.nextLine();
+        while(!scanner.hasNextInt())
+            scanner.next();
+        
+        int i = scanner.nextInt(); // unused; its just to lock
         
         gameState.draw();
     }
@@ -117,10 +120,8 @@ public class TextUserInterface {
         
         value = scanner.nextInt();
         
-        System.out.println("DEBUG: value = " + value);
-        
         switch (value) {
-            case 1: gameState.start();
+            case 1: gameState.start(); break;
             case 2:
                 GameState newGS = null;
                 try {
@@ -162,7 +163,7 @@ public class TextUserInterface {
                 gameState.setState(new AwaitTrackSelection(gameState.getGame()));
                 return;
             }
-
+        
         switch (value) {
             case 1:
                 gameState.archersAttack();
@@ -189,7 +190,7 @@ public class TextUserInterface {
                 gameState.sabotage();
                 break;
             case 9:
-                gameState.additionalAction();
+                gameState.additionalAction(getAAOption());
                 break;
             case 10:
                 gameState.endTurn();
@@ -207,6 +208,23 @@ public class TextUserInterface {
         // if it reached here it already performed the attack
         // so, we can reset track selection
         trackSelected = false;
+    }
+    
+    private int getAAOption () {
+        System.out.println("Do you wish to spend 1 morale or 1 supply?");
+        System.out.println("1 - morale");
+        System.out.println("2 - supply");
+        System.out.println(">> ");
+        
+        while (!scanner.hasNextInt())
+            scanner.next();
+        
+        int op = scanner.nextInt();
+        
+        if (op == 1) return 0;
+        else if (op == 2) return 1;
+        
+        return -1;
     }
     
     private Boolean applyDRM() {

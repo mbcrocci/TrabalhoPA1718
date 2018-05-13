@@ -75,7 +75,7 @@ public class Game implements Serializable {
         return enemyTrackCard.checkCCA() == 2
             || statusCard.getWallStrength() == 0
             || statusCard.getMorale() == 0
-            || statusCard.getSupplies() == 0;
+            || statusCard.getFortressSupplies() == 0;
     }
     
     public void setupTurn() {
@@ -234,15 +234,12 @@ public class Game implements Serializable {
         return trackChoice;
     }
     
-    
-    // TODO: finish
     public void aditionalAction(int option) {
         if (option == 0)
             statusCard.decreaseMorale();
         
         else if (option == 1)
-            // TODO: check if its FortressSupplies instead
-            statusCard.decreaseSupplies();     
+            statusCard.decreaseFortressSupplies();     
     }
     
     public void capture() {

@@ -85,8 +85,8 @@ public class GameState implements Serializable {
         setState(getState().sabotage());
     }
     
-    public void additionalAction() {
-        setState(getState().additionalAction());
+    public void additionalAction(int op) {
+        setState(getState().additionalAction(op));
     }
     
     public void endTurn() {
