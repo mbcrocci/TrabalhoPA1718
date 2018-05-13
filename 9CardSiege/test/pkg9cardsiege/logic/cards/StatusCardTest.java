@@ -5,6 +5,7 @@
  */
 package pkg9cardsiege.logic.cards;
 
+import pkg9cardsiege.models.cards.StatusCard;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

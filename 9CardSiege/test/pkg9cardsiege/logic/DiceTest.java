@@ -5,6 +5,7 @@
  */
 package pkg9cardsiege.logic;
 
+import pkg9cardsiege.models.Dice;
 import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
-import pkg9cardsiege.logic.GameState;
-import pkg9cardsiege.logic.states.AwaitActionChoice;
-import pkg9cardsiege.logic.states.AwaitDraw;
-import pkg9cardsiege.logic.states.AwaitStart;
-import pkg9cardsiege.logic.states.AwaitTrackSelection;
-import pkg9cardsiege.logic.states.AwaitTunnelMovChoice;
-import pkg9cardsiege.logic.states.GameOver;
+import pkg9cardsiege.contollers.GameState;
+import pkg9cardsiege.contollers.states.AwaitActionChoice;
+import pkg9cardsiege.contollers.states.AwaitDraw;
+import pkg9cardsiege.contollers.states.AwaitStart;
+import pkg9cardsiege.contollers.states.AwaitTrackSelection;
+import pkg9cardsiege.contollers.states.AwaitTunnelMovChoice;
+import pkg9cardsiege.contollers.states.GameOver;
 
 public class TextUserInterface {
     private GameState gameState;
