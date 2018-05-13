@@ -1,11 +1,12 @@
 package pkg9cardsiege.logic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import pkg9cardsiege.logic.states.AwaitStart;
 import pkg9cardsiege.logic.states.IState;
 
 
-public class GameState {
+public class GameState implements Serializable {
     private Game game;
     private IState state;
     

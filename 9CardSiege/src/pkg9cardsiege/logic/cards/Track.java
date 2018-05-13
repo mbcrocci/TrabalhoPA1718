@@ -5,11 +5,13 @@
  */
 package pkg9cardsiege.logic.cards;
 
+import java.io.Serializable;
+
 /**
  *
  * @author m0nk1w1
  */
-public class Track {
+public class Track implements Serializable {
     private String name;
     private int size;
     private int value;

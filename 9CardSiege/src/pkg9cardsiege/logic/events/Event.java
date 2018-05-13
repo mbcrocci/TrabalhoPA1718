@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg9cardsiege.logic.events;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import pkg9cardsiege.logic.Game;
 
-/**
- *
- * @author mbcro
- */
-public class Event {
+
+public class Event implements Serializable {
     protected String name;
     protected String description;
     protected int actionPointAllowance;

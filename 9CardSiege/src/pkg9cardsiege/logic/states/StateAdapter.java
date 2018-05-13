@@ -1,9 +1,10 @@
 package pkg9cardsiege.logic.states;
 
+import java.io.Serializable;
 import pkg9cardsiege.logic.Game;
 
 
-public class StateAdapter implements IState {
+public class StateAdapter implements IState, Serializable {
     
     public Game game;
     

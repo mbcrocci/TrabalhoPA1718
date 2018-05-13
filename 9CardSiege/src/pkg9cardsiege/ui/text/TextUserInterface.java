@@ -1,5 +1,10 @@
 package pkg9cardsiege.ui.text;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import pkg9cardsiege.logic.GameState;
 import pkg9cardsiege.logic.states.AwaitActionChoice;
@@ -15,10 +20,44 @@ public class TextUserInterface {
     
     private Boolean trackSelected = false;
     
+    private static final String FILENAME = "savedgame";
+    
     public TextUserInterface(GameState gameState) {
         this.gameState = gameState;
         this.scanner = new Scanner(System.in);
     }
+    
+    private void saveGameToFile(String filename) throws IOException {
+        ObjectOutputStream oout = null;
+        
+        try {
+            oout = new ObjectOutputStream(new FileOutputStream(filename));
+            
+            oout.writeObject(gameState);
+            
+        } finally {
+            if (oout != null)
+                oout.close();   
+        }
+    }
+    
+    private GameState getGameFromFile (String filename) throws IOException, ClassNotFoundException {
+        ObjectInputStream oin = null;
+        GameState gs = null;
+        
+        try  {
+            oin = new ObjectInputStream(new FileInputStream(filename));
+            
+            gs = (GameState) oin.readObject();
+            
+        } finally {
+            if (oin != null)
+                oin.close();
+        }
+        
+        return gs;  
+    }
+    
     
     public void showGame() {
         System.out.println(gameState);
@@ -82,8 +121,19 @@ public class TextUserInterface {
         
         switch (value) {
             case 1: gameState.start();
-            //case 2: gameState.resume();
-        }
+            case 2:
+                GameState newGS = null;
+                try {
+                    newGS = getGameFromFile(FILENAME);
+                } catch (IOException | ClassNotFoundException e) {
+                    System.out.println("Couldn't load game.");
+
+                } finally {
+                    if (newGS != null)
+                        gameState = newGS;
+                }
+                break;
+        } 
     }
     
     private void getUserInputWhileAwaitingActionChoice() {
@@ -145,7 +195,12 @@ public class TextUserInterface {
                 gameState.endTurn();
                 break;
             case 0:
-                gameState.save();
+                try {
+                    saveGameToFile(FILENAME);
+                } catch (IOException e) {
+                    System.out.println("Couldn't save game.");
+
+                }
                 break;
         } 
         
