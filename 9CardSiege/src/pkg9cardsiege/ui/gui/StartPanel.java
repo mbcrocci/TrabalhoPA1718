@@ -11,7 +11,7 @@ import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitStart;
 
 
-public class AwaitStartPanel extends JPanel implements Observer {
+public class StartPanel extends JPanel implements Observer {
     
     private GameState gameState;
     
@@ -19,7 +19,7 @@ public class AwaitStartPanel extends JPanel implements Observer {
     private JButton startBtn;
     
     
-    public AwaitStartPanel(GameState gameState) {
+    public StartPanel(GameState gameState) {
         this.gameState = gameState;
         
         // TODO: Set background image
