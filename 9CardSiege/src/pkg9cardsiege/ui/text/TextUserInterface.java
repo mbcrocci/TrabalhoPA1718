@@ -252,6 +252,7 @@ public class TextUserInterface {
         value = scanner.nextInt();
         
         gameState.selectTrack(value);
+        trackSelected = true;
     }
     
     private void getUserInputWhileTunnelMovementChoice() {

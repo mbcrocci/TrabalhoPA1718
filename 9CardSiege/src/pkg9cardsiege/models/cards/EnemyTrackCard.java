@@ -44,7 +44,7 @@ public class EnemyTrackCard extends Card {
     }
     
     public void advanceGates() {
-        wall.decrease();
+        gates.decrease();
     }
 
     public int getSiegeTower() {
@@ -52,7 +52,7 @@ public class EnemyTrackCard extends Card {
     }
     
     public void advanceSiegeTower() {
-        wall.decrease();
+        siegeTower.decrease();
     }
     
     public int getTrebuchets() {
