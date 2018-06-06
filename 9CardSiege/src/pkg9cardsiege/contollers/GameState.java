@@ -2,12 +2,13 @@ package pkg9cardsiege.contollers;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 import pkg9cardsiege.models.Game;
 import pkg9cardsiege.contollers.states.AwaitStart;
 import pkg9cardsiege.contollers.states.IState;
 
 
-public class GameState implements Serializable {
+public class GameState extends Observable implements Serializable {
     private Game game;
     private IState state;
     
