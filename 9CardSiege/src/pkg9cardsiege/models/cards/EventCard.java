@@ -19,6 +19,10 @@ public class EventCard extends Card {
         return days[day];
     }
     
+    public int getNumber() {
+        return number;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

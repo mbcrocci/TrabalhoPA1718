@@ -8,13 +8,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
+import pkg9cardsiege.contollers.states.AwaitDraw;
 
 
 public class GamePanel extends JPanel implements Observer {
@@ -31,22 +29,23 @@ public class GamePanel extends JPanel implements Observer {
     public static BufferedImage getEventCardBackImg() {
         return imgs.get("EventCardBack");
     }
-    public static BufferedImage getEventCardFrontImg(String eventName) {
-        return imgs.get(eventName);
+    public static BufferedImage getEventCardFrontImg(int cardNumber) {
+        return imgs.get("Card" + cardNumber);
     }
     
     static {
         try {
-            imgs.put("StatusCard", ImageIO.read(Resources.getResourceFile("images/status_card.gif")));
-            imgs.put("EnemiesCard", ImageIO.read(Resources.getResourceFile("images/enemies_card.gif")));
-            imgs.put("EventCardBack", ImageIO.read(Resources.getResourceFile("images/event_back.gif")));
-            imgs.put("Card1", ImageIO.read(Resources.getResourceFile("images/card1.gif")));
-            imgs.put("Card2", ImageIO.read(Resources.getResourceFile("images/card2.gif")));
-            imgs.put("Card3", ImageIO.read(Resources.getResourceFile("images/card3.gif")));
-            imgs.put("Card4", ImageIO.read(Resources.getResourceFile("images/card4.gif")));
-            imgs.put("Card5", ImageIO.read(Resources.getResourceFile("images/card5.gif")));
-            imgs.put("Card6", ImageIO.read(Resources.getResourceFile("images/card6.gif")));
-            imgs.put("Card7", ImageIO.read(Resources.getResourceFile("images/card7.gif")));
+            imgs = new HashMap<>();
+            imgs.put("StatusCard", ImageIO.read(Resources.getResourceFile("images/status_card.png")));
+            imgs.put("EnemiesCard", ImageIO.read(Resources.getResourceFile("images/enemies_card.png")));
+            imgs.put("EventCardBack", ImageIO.read(Resources.getResourceFile("images/event_back.png")));
+            imgs.put("Card1", ImageIO.read(Resources.getResourceFile("images/card1.png")));
+            imgs.put("Card2", ImageIO.read(Resources.getResourceFile("images/card2.png")));
+            imgs.put("Card3", ImageIO.read(Resources.getResourceFile("images/card3.png")));
+            imgs.put("Card4", ImageIO.read(Resources.getResourceFile("images/card4.png")));
+            imgs.put("Card5", ImageIO.read(Resources.getResourceFile("images/card5.png")));
+            imgs.put("Card6", ImageIO.read(Resources.getResourceFile("images/card6.png")));
+            imgs.put("Card7", ImageIO.read(Resources.getResourceFile("images/card7.png")));
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -65,13 +64,20 @@ public class GamePanel extends JPanel implements Observer {
     public GamePanel(GameState gameState) {
         this.gameState = gameState;
         
+        setupComponents();
+        setupLayout();
+        
         update(gameState, null);
     }
     
-    private void setComponents() {
+    private void setupComponents() {
         statusPanel = new CardPanel(gameState, CardPanel.STATUS_CARD);
         enemiesPanel = new CardPanel(gameState, CardPanel.ENEMIES_CARD);
         eventPanel = new CardPanel(gameState, CardPanel.EVENT_CARD);
+        
+        actionChoicePanel = new SelectionPanel();
+        trackSelectionPanel = new SelectionPanel();
+        tunnelMovPanel = new SelectionPanel();
     }
 
     private void setupLayout() {
@@ -119,6 +125,8 @@ public class GamePanel extends JPanel implements Observer {
     
     @Override
     public void update(Observable o, Object o1) {
-        
-    }   
+        if (gameState.getState() instanceof AwaitDraw) {
+            eventPanel.setBack();
+        }
+    }
 }

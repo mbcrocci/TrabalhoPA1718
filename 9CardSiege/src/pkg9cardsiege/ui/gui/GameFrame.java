@@ -5,15 +5,18 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.scene.layout.Border;
 import javax.swing.JFrame;
 import pkg9cardsiege.contollers.GameState;
+import pkg9cardsiege.contollers.states.AwaitStart;
 
 
 public class GameFrame extends JFrame implements Observer {
     
     private GameState gameState;
-    private final GamePanel gamePanel;
+    private GamePanel gamePanel;
+    private StartPanel startPanel;
+    
+    private Container cp;
     
     
     public GameFrame(GameState gameState) {
@@ -38,10 +41,10 @@ public class GameFrame extends JFrame implements Observer {
         this.gameState = gameState;
         this.gameState.addObserver(this);
         
-        Container cp = getContentPane();
-        
+        startPanel = new StartPanel(gameState);
         gamePanel = new GamePanel(gameState);
-        cp.add(gamePanel, BorderLayout.CENTER);
+        
+        addComponents();
         
         setLocation(x, y);
         setSize(width, height);
@@ -52,8 +55,25 @@ public class GameFrame extends JFrame implements Observer {
         validate();
     }
     
+    private void addComponents() {
+        cp = getContentPane();
+        cp.setLayout(new BorderLayout());
+
+        cp.add(startPanel, BorderLayout.CENTER);
+        //cp.add(gamePanel, BorderLayout.CENTER);
+    }
+    
     @Override
     public void update(Observable t, Object o) {
+        cp.removeAll();
+        
+        if (gameState.getState() instanceof AwaitStart)
+            cp.add(startPanel, BorderLayout.CENTER);
+        
+        else
+            cp.add(gamePanel, BorderLayout.CENTER);
+        
         repaint();
+        //
     }
 }

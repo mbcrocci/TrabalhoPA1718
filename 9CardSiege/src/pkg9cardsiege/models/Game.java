@@ -44,6 +44,9 @@ public class Game implements Serializable {
     private EnemyTrackCard enemyTrackCard;
     // card deck from where the player draws his cards
     private ArrayList<EventCard> deck;
+    
+    private EventCard currentEvent;
+    
     private boolean raidAndSabotageOnlyTurn;
     
     private ArrayList<String> messages;
@@ -219,7 +222,12 @@ public class Game implements Serializable {
     }
 
     public EventCard drawCard() {
-        return deck.remove(0);
+        currentEvent = deck.remove(0);
+        return currentEvent;
+    }
+    
+    public EventCard getCurrentEvent() {
+        return currentEvent;
     }
     
     public Boolean getFreeMov() {

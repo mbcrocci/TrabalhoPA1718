@@ -1,10 +1,11 @@
 package pkg9cardsiege.ui.gui;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
@@ -30,7 +31,7 @@ public class StartPanel extends JPanel implements Observer {
         
         // create and position start button
         startBtn = new JButton("Start");
-        startBtn.addActionListener((g) -> gameState.start());
+        startBtn.addActionListener(new StartListener());
         
         // add components
         add(gameTitle);
@@ -45,7 +46,12 @@ public class StartPanel extends JPanel implements Observer {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        
+    }
+
+    private class StartListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gameState.start();
+        }
     }
 }
