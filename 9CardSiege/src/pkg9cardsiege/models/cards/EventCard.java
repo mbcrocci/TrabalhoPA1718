@@ -9,6 +9,7 @@ public class EventCard extends Card {
     private Event []days;
     
     public EventCard(int number, Event d1, Event d2, Event d3) {
+        this.number = number;
         days = new Event[3];
         days[0] = d1;
         days[1] = d2;

@@ -15,6 +15,9 @@ public class GameState extends Observable implements Serializable {
     public GameState() {
         this.game = new Game();
         this.state = new AwaitStart(game);
+        
+        setChanged();
+        notifyObservers();
     }
     
     public Game getGame() {
@@ -49,10 +52,16 @@ public class GameState extends Observable implements Serializable {
     // -------- State methods --------
     public void start() {
         setState(getState().start());
+        
+        setChanged();
+        notifyObservers();
     }
     
     public void draw() {
         setState(getState().draw());
+        
+        setChanged();
+        notifyObservers();
     }
 
     

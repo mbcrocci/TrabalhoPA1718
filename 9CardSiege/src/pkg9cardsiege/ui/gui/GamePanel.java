@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitDraw;
@@ -82,42 +83,62 @@ public class GamePanel extends JPanel implements Observer {
 
     private void setupLayout() {
         
-        Box leftBox = Box.createVerticalBox();
-        leftBox.add(Box.createVerticalGlue());
-        leftBox.add(statusPanel);
+        Box topBox = Box.createHorizontalBox();
+        topBox.add(Box.createHorizontalGlue());
         
-        leftBox.add(Box.createVerticalGlue());
+            Box leftTopBox = Box.createVerticalBox();
+            leftTopBox.add(Box.createVerticalGlue());
+            leftTopBox.add(new JLabel("Status"));
+            leftTopBox.add(Box.createVerticalGlue());
+            leftTopBox.add(statusPanel);
+            leftTopBox.add(Box.createVerticalGlue());
+            
+        topBox.add(leftTopBox);
+        topBox.add(Box.createHorizontalGlue());
+        
+            Box rightBotBox = Box.createVerticalBox();
+            rightBotBox.add(Box.createVerticalGlue());
+            rightBotBox.add(new JLabel("Enemies"));
+            rightBotBox.add(Box.createVerticalGlue());
+            rightBotBox.add(enemiesPanel);
+            rightBotBox.add(Box.createVerticalGlue());
+            
+        topBox.add(rightBotBox);
+        topBox.add(Box.createHorizontalGlue());
 
-        leftBox.add(enemiesPanel);
-        leftBox.add(Box.createVerticalGlue());
-
-
-        Box rightBox = Box.createVerticalBox();
-        rightBox.add(Box.createVerticalGlue());
-        rightBox.add(eventPanel);
+        Box botBox = Box.createHorizontalBox();
+        botBox.add(Box.createHorizontalGlue());
         
-        rightBox.add(Box.createVerticalGlue());
+            Box rightTopBox = Box.createVerticalBox();
+            rightTopBox.add(Box.createVerticalGlue());
+            rightTopBox.add(new JLabel("Event"));
+            rightTopBox.add(Box.createVerticalGlue());
+            rightTopBox.add(eventPanel);
+            rightTopBox.add(Box.createVerticalGlue());
+            
         
+        botBox.add(rightTopBox);
+        botBox.add(Box.createHorizontalGlue());
         
-        Box selectionBox = Box.createHorizontalBox();
+            Box selectionBox = Box.createHorizontalBox();
         
-        selectionBox.add(Box.createHorizontalGlue());
-        selectionBox.add(actionChoicePanel);
-        selectionBox.add(Box.createHorizontalGlue());
-        selectionBox.add(trackSelectionPanel);
-        selectionBox.add(Box.createHorizontalGlue());
-        selectionBox.add(tunnelMovPanel);
-        selectionBox.add(Box.createHorizontalGlue());
+            selectionBox.add(Box.createHorizontalGlue());
+            selectionBox.add(actionChoicePanel);
+            selectionBox.add(Box.createHorizontalGlue());
+            selectionBox.add(trackSelectionPanel);
+            selectionBox.add(Box.createHorizontalGlue());
+            selectionBox.add(tunnelMovPanel);
+            selectionBox.add(Box.createHorizontalGlue());
         
-        rightBox.add(selectionBox);
-        rightBox.add(Box.createVerticalGlue());
+        botBox.add(selectionBox);
+        botBox.add(Box.createVerticalGlue());
         
-        Box center = Box.createHorizontalBox();
-        center.add(Box.createHorizontalGlue());
-        center.add(leftBox);
-        center.add(Box.createHorizontalGlue());
-        center.add(rightBox);
-        center.add(Box.createHorizontalGlue());
+        Box center = Box.createVerticalBox();
+        center.add(Box.createVerticalGlue());
+        center.add(topBox);
+        center.add(Box.createVerticalGlue());
+        center.add(botBox);
+        center.add(Box.createVerticalGlue());
         
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
@@ -128,5 +149,7 @@ public class GamePanel extends JPanel implements Observer {
         if (gameState.getState() instanceof AwaitDraw) {
             eventPanel.setBack();
         }
+        
+        repaint();
     }
 }

@@ -1,14 +1,19 @@
 package pkg9cardsiege.ui.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
+import pkg9cardsiege.contollers.states.AwaitDraw;
 
 
 public class CardPanel extends JPanel implements Observer {
@@ -27,74 +32,104 @@ public class CardPanel extends JPanel implements Observer {
     private JLabel label;
     private JPanel panel;
     
+    private BufferedImage img;
+    
     public CardPanel(GameState gameState, int type) {
         this.gameState = gameState;
         this.type = type;
         
-        this.label = new JLabel();
-        this.label.setFont(new Font("Arial", Font.BOLD, 12));
+        if (type == EVENT_CARD)
+            front = false;
         
-        this.panel = new JPanel();
-        // TODO: add image
+        setImg();
         
-        // TODO: Draw image
-        switch(this.type) {
-            case STATUS_CARD:
-                label.setText("Status Card");
-                break;
-                
-            case ENEMIES_CARD:
-                label.setText("Enemy Card");
-                break;
-                
-            case EVENT_CARD:
-                label.setText("Event");
-                break;
-        }
+        Dimension d = new Dimension(
+                Constants.GAP_X_CARD + img.getHeight() + Constants.GAP_X_CARD,
+                Constants.GAP_Y_CARD + img.getWidth()  + Constants.GAP_X_CARD
+        );
         
-        cardBox = Box.createVerticalBox();
-        cardBox.add(label, Box.CENTER_ALIGNMENT);
-        cardBox.add(panel);
+        setPreferredSize(d);
+        setMaximumSize(d);
+        setMinimumSize(d);
         
-        setLayout(new BorderLayout());
-        add(cardBox, BorderLayout.CENTER);
+        setBackground(Color.LIGHT_GRAY);
+        
+        addMouseListener(new EventListener());
     }
     
     public void setBack() {
         front = false;
     }
     
-    
-    @Override
-    public void update(Observable o, Object arg) {
-        
-    }
-    
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
+    public void setImg() {
         switch (type) {
             case EVENT_CARD:
                 if (!front) {
-                    g.drawImage(GamePanel.getEventCardBackImg(), 0, 0, null);
+                    img = GamePanel.getEventCardBackImg();
                     
                 } else {
                     int cardNumber = gameState.getGame().getCurrentEvent().getNumber();
-                    g.drawImage(
-                            GamePanel.getEventCardFrontImg(cardNumber),
-                            type, type, label
-                    );
+                    img = GamePanel.getEventCardFrontImg(cardNumber);
                 }   break;
+                
             case STATUS_CARD:
-                g.drawImage(GamePanel.getStatusCardImg(), 0, 0, null);
+                img = GamePanel.getStatusCardImg();
                 break;
             case ENEMIES_CARD:
-                g.drawImage(GamePanel.getEnemiesCardImg(), 0, 0, null);
+                img = GamePanel.getEnemiesCardImg();
                 break;
             default:
                 break;
         }
     }
     
+    @Override
+    public void update(Observable o, Object arg) {
+        if (type == EVENT_CARD && gameState.getState() instanceof AwaitDraw)
+            setBack();
+        
+        repaint();
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (img != null)
+            g.drawImage(
+                img, Constants.GAP_X_CARD, Constants.GAP_Y_CARD,
+                img.getHeight(), img.getWidth(), null
+            );
+    }
+    
+    private class EventListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            if (gameState.getState() instanceof AwaitDraw) {
+                
+                gameState.draw();
+                
+                front = true;
+                setImg();
+                
+                //notify();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent me) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent me) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent me) {
+        }
+    }
 }
