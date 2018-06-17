@@ -101,6 +101,9 @@ public class GameState extends Observable implements Serializable {
     
     public void endTurn() {
         setState(getState().endTurn());
+        
+        setChanged();
+        notifyObservers();
     }
     
     public void save() {

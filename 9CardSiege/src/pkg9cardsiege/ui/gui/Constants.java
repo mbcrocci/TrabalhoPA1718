@@ -7,7 +7,7 @@ public class Constants {
     static final int START_Y_FRAME = 100;
     
     static final int DIM_X_FRAME   = 1000;
-    static final int DIM_Y_FRAME   = 750;
+    static final int DIM_Y_FRAME   = 900;
     
     
     static final int DIM_X_CARD = 243;

@@ -71,6 +71,8 @@ public class GameFrame extends JFrame implements Observer {
             cp.add(gamePanel, BorderLayout.CENTER);
         }
         
+        gamePanel.update(gameState, null);
+        
         revalidate();
         repaint();
     }

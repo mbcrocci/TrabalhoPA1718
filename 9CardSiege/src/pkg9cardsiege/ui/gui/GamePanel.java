@@ -13,7 +13,10 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
+import pkg9cardsiege.contollers.states.AwaitActionChoice;
 import pkg9cardsiege.contollers.states.AwaitDraw;
+import pkg9cardsiege.contollers.states.AwaitTrackSelection;
+import pkg9cardsiege.contollers.states.AwaitTunnelMovChoice;
 
 
 public class GamePanel extends JPanel implements Observer {
@@ -57,9 +60,10 @@ public class GamePanel extends JPanel implements Observer {
     private CardPanel statusPanel;
     private CardPanel enemiesPanel;
     private CardPanel eventPanel;
-    private SelectionPanel actionChoicePanel;
-    private SelectionPanel trackSelectionPanel;
-    private SelectionPanel tunnelMovPanel;
+    private ActionChoicePanel actionChoicePanel;
+    private TrackSelectPanel trackSelectionPanel;
+    private TunnelMovePanel tunnelMovPanel;
+    private JPanel choicePanel;
 
         
     public GamePanel(GameState gameState) {
@@ -76,9 +80,11 @@ public class GamePanel extends JPanel implements Observer {
         enemiesPanel = new CardPanel(gameState, CardPanel.ENEMIES_CARD);
         eventPanel = new CardPanel(gameState, CardPanel.EVENT_CARD);
         
-        actionChoicePanel = new SelectionPanel();
-        trackSelectionPanel = new SelectionPanel();
-        tunnelMovPanel = new SelectionPanel();
+        actionChoicePanel = new ActionChoicePanel(gameState);
+        trackSelectionPanel = new TrackSelectPanel(gameState);
+        tunnelMovPanel = new TunnelMovePanel(gameState);
+        
+        choicePanel = new JPanel();
     }
 
     private void setupLayout() {
@@ -109,29 +115,27 @@ public class GamePanel extends JPanel implements Observer {
         Box botBox = Box.createHorizontalBox();
         botBox.add(Box.createHorizontalGlue());
         
-            Box rightTopBox = Box.createVerticalBox();
-            rightTopBox.add(Box.createVerticalGlue());
-            rightTopBox.add(new JLabel("Event"));
-            rightTopBox.add(Box.createVerticalGlue());
-            rightTopBox.add(eventPanel);
-            rightTopBox.add(Box.createVerticalGlue());
+            Box leftBotBox = Box.createVerticalBox();
+            leftBotBox.add(Box.createVerticalGlue());
+            leftBotBox.add(new JLabel("Event"));
+            leftBotBox.add(Box.createVerticalGlue());
+            leftBotBox.add(eventPanel);
+            leftBotBox.add(Box.createVerticalGlue());
             
         
-        botBox.add(rightTopBox);
+        botBox.add(leftBotBox);
         botBox.add(Box.createHorizontalGlue());
         
-            Box selectionBox = Box.createHorizontalBox();
+            Box selectionBox = Box.createVerticalBox();
         
-            selectionBox.add(Box.createHorizontalGlue());
-            selectionBox.add(actionChoicePanel);
-            selectionBox.add(Box.createHorizontalGlue());
-            selectionBox.add(trackSelectionPanel);
-            selectionBox.add(Box.createHorizontalGlue());
-            selectionBox.add(tunnelMovPanel);
-            selectionBox.add(Box.createHorizontalGlue());
+            selectionBox.add(Box.createVerticalGlue());
+            selectionBox.add(new JLabel("TEST"));
+            selectionBox.add(Box.createVerticalGlue());
+            selectionBox.add(choicePanel);
+            selectionBox.add(Box.createVerticalGlue());
         
         botBox.add(selectionBox);
-        botBox.add(Box.createVerticalGlue());
+        botBox.add(Box.createHorizontalGlue());
         
         Box center = Box.createVerticalBox();
         center.add(Box.createVerticalGlue());
@@ -144,12 +148,30 @@ public class GamePanel extends JPanel implements Observer {
         add(center, BorderLayout.CENTER);
     }
     
+    public void swapChoicePanel(JPanel newPanel) {
+        choicePanel.removeAll();
+        choicePanel.add(newPanel);
+        choicePanel.setVisible(true);
+    }
+    
     @Override
     public void update(Observable o, Object o1) {
-        if (gameState.getState() instanceof AwaitDraw) {
+        if (gameState.getState() instanceof AwaitDraw)
             eventPanel.setBack();
-        }
         
+        if (gameState.getState() instanceof AwaitActionChoice) {
+            System.out.println("Changign choicePanel to ActionchoicePanel");
+            swapChoicePanel(actionChoicePanel);
+        
+        } else if (gameState.getState() instanceof AwaitTrackSelection)
+            swapChoicePanel(trackSelectionPanel);
+        
+        else if (gameState.getState() instanceof AwaitTunnelMovChoice) {
+            swapChoicePanel(tunnelMovPanel);
+        
+        } else choicePanel.setVisible(false);
+        
+        revalidate();
         repaint();
     }
 }

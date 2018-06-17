@@ -44,8 +44,8 @@ public class CardPanel extends JPanel implements Observer {
         setImg();
         
         Dimension d = new Dimension(
-                Constants.GAP_X_CARD + img.getHeight() + Constants.GAP_X_CARD,
-                Constants.GAP_Y_CARD + img.getWidth()  + Constants.GAP_X_CARD
+                Constants.GAP_X_CARD + img.getWidth() + Constants.GAP_X_CARD,
+                Constants.GAP_Y_CARD + img.getHeight()  + Constants.GAP_X_CARD
         );
         
         setPreferredSize(d);
@@ -97,9 +97,7 @@ public class CardPanel extends JPanel implements Observer {
 
         if (img != null)
             g.drawImage(
-                img, Constants.GAP_X_CARD, Constants.GAP_Y_CARD,
-                img.getHeight(), img.getWidth(), null
-            );
+                img, Constants.GAP_X_CARD, Constants.GAP_Y_CARD, null);
     }
     
     private class EventListener implements MouseListener {
