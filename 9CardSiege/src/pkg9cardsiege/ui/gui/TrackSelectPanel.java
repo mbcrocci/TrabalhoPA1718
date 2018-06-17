@@ -1,11 +1,13 @@
 package pkg9cardsiege.ui.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
@@ -51,7 +53,18 @@ public class TrackSelectPanel extends JPanel implements Observer{
     }
     
     public void setupLayout() {
+        Box box = Box.createVerticalBox();
+        box.add(Box.createVerticalGlue());
         
+        box.add(wallBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(gatesBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(trebuBtn);
+        box.add(Box.createVerticalGlue());
+        
+        setLayout(new BorderLayout());
+        add(box, BorderLayout.CENTER);
     }
     
     
@@ -63,23 +76,19 @@ public class TrackSelectPanel extends JPanel implements Observer{
     private static class SelectWallListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-        
         }
-
     }
 
     private static class SelectGatesListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
 
     private static class SelectTrebuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
 }

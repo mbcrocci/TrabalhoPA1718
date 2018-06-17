@@ -21,7 +21,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private GameState gameState;
     
     private JButton archersAtkBtn;
-    private JButton boilngWaterAtkBtn;
+    private JButton boilingWaterAtkBtn;
     private JButton ccaAtkBtn;
     private JButton coupureBtn;
     private JButton rallyBtn;
@@ -55,10 +55,10 @@ public class ActionChoicePanel extends JPanel implements Observer {
     
     public void setupComponents() {
         archersAtkBtn       = new JButton("Archers Attack");
-        boilngWaterAtkBtn   = new JButton("Boiling Water Attack");
+        boilingWaterAtkBtn   = new JButton("Boiling Water Attack");
         ccaAtkBtn           = new JButton("Close Combat Attack");
         coupureBtn          = new JButton("Coupure");
-        rallyBtn        = new JButton("Rally Troops");
+        rallyBtn            = new JButton("Rally Troops");
         tunnelMovBtn        = new JButton("Tunnel Movement");
         supplyRaidBtn       = new JButton("Supply Raid"); 
         sabotageBtn         = new JButton("Sabotage");
@@ -67,7 +67,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
         saveGame            = new JButton("Save Game");
         
         archersAtkBtn      .addActionListener(new ArchersAtkListener());
-        boilngWaterAtkBtn  .addActionListener(new BoilngWaterAtkListener());
+        boilingWaterAtkBtn  .addActionListener(new BoilngWaterAtkListener());
         ccaAtkBtn          .addActionListener(new CcaAtkListener());
         coupureBtn         .addActionListener(new CoupureListener());
         rallyBtn           .addActionListener(new RallyListener());
@@ -84,6 +84,22 @@ public class ActionChoicePanel extends JPanel implements Observer {
         Box box = Box.createVerticalBox();
         box.add(Box.createVerticalGlue());
         box.add(archersAtkBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(boilingWaterAtkBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(ccaAtkBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(coupureBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(rallyBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(tunnelMovBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(supplyRaidBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(sabotageBtn);
+        box.add(Box.createVerticalGlue());
+        box.add(additionalActionBtn);
         box.add(Box.createVerticalGlue());
         box.add(endTurnBtn);
         box.add(Box.createVerticalGlue());
@@ -131,6 +147,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class TunnelMovBListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.tunnelMovement();
         }   
     }
     private class SupplyRaidListener implements ActionListener {
