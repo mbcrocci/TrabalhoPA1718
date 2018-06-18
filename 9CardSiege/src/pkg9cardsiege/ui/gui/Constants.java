@@ -28,20 +28,27 @@ public class Constants {
     static final int GAP_X_TRACK = 18;
     static final int GAP_Y_TRACK = 14;
     
+    static final int GAP_X_TRACK_E = 21;
+    static final int GAP_Y_TRACK_E = 63;
+    
     static final int GAP_X_TRACK_SPACE = 35;
+    static final int GAP_X_TRACK_SPACE_E = 38;
     static final int GAP_Y_TRACK_SPACE = 16;
     
     static final int GAP_X_SURRENDER = 96;
     static final int GAP_Y_SURRENDER = 240;
     
-    static final int GAP_X_CCA = 0;
-    static final int GPA_Y_CCA = 0;
+    static final int DIM_X_CCA = 80;
+    static final int GAP_X_CCA = 80;
+    static final int GAP_Y_CCA = 13;
     
     static final int GAP_X_TUNNEL = 10;
     static final int GAP_Y_TUNNEL = 296;
     
     static final int GAP_X_SUPPLIES = 180;
     static final int GAP_Y_SUPPLIES = 296;
+    
+    static final int GAP_Y_TREBU = 296;
     
     
 }

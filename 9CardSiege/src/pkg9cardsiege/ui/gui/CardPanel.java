@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitDraw;
+import pkg9cardsiege.models.cards.EnemyTrackCard;
 import pkg9cardsiege.models.cards.StatusCard;
 
 
@@ -247,7 +248,116 @@ public class CardPanel extends JPanel implements Observer {
     }
     
     public void drawEnemiesCubes(Graphics g) {
+        EnemyTrackCard ec = gameState.getGame().getEnemyTrackCard();
+        int x = 0, y = 0, width, height;
         
+        width = Constants.DIM_X_CUBE;
+        height = Constants.DIM_Y_CUBE;
+        
+        switch (ec.getWall()) {
+        case 0:
+            x = Constants.GAP_X_CCA;
+            y = Constants.GAP_Y_CCA;
+            width = Constants.DIM_X_CCA;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK_E;
+            y = Constants.GAP_Y_TRACK_E;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK_E;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
+            break;
+        case 3:
+            x = Constants.GAP_X_TRACK_E;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+            break;
+        case 4:
+            x = Constants.GAP_X_TRACK_E;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+        }
+        
+        g.setColor(Color.RED);
+        g.fillRect(x, y, width, height);
+        
+        width = Constants.DIM_X_CUBE;
+        height = Constants.DIM_Y_CUBE;
+        
+        switch (ec.getGates()) {
+        case 0:
+            x = Constants.GAP_X_CCA;
+            y = Constants.GAP_Y_CCA;
+            width = Constants.DIM_X_CCA;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK_E + Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E;
+            y = Constants.GAP_Y_TRACK_E;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK_E + Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
+            break;
+        case 3:
+            x = Constants.GAP_X_TRACK_E + Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+            break;
+        case 4:
+            x = Constants.GAP_X_TRACK_E + Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+        }
+        
+        g.setColor(Color.RED);
+        g.fillRect(x, y, width, height);
+        
+        width = Constants.DIM_X_CUBE;
+        height = Constants.DIM_Y_CUBE;
+        
+        switch (ec.getSiegeTower()) {
+        case 0:
+            x = Constants.GAP_X_CCA;
+            y = Constants.GAP_Y_CCA;
+            width = Constants.DIM_X_CCA;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+            y = Constants.GAP_Y_TRACK_E;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
+            break;
+        case 3:
+            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+            break;
+        case 4:
+            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+        }
+        
+        g.setColor(Color.RED);
+        g.fillRect(x, y, width, height);
+        
+        width = Constants.DIM_X_CUBE;
+        height = Constants.DIM_Y_CUBE;
+        
+        switch (ec.getTrebuchets()) {
+        case 0:
+            x = Constants.GAP_X_TRACK_E;
+            y = Constants.GAP_Y_TREBU;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK_E + Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E;
+            y = Constants.GAP_Y_TREBU;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+            y = Constants.GAP_Y_TREBU;
+            break;
+        }
+        
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, width, height);
     }
     
     private class EventListener implements MouseListener {

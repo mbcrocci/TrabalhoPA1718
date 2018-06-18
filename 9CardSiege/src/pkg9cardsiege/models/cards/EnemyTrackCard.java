@@ -70,9 +70,9 @@ public class EnemyTrackCard extends Card {
     
     public int checkCCA() {
         int enemiesInCCA = 0;
-        if (wall.getValue() == 0) enemiesInCCA++;
-        if (gates.getValue() == 0) enemiesInCCA++;
-        if (siegeTower.getValue() == 0) enemiesInCCA++;
+        if (wall.getValue() == 0) enemiesInCCA += 1;
+        if (gates.getValue() == 0) enemiesInCCA += 1;
+        if (siegeTower.getValue() == 0) enemiesInCCA += 1;
         
         return enemiesInCCA;
     }
