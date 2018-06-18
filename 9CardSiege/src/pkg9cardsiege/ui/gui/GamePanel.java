@@ -69,6 +69,7 @@ public class GamePanel extends JPanel implements Observer {
     private TunnelMovePanel tunnelMovPanel;
     private JPanel choicePanel;
     private JLabel choiceLabel;
+    private JLabel dayLabel;
     private JLabel actionPointsLabel;
     private JButton endTurnBtn;
 
@@ -94,6 +95,7 @@ public class GamePanel extends JPanel implements Observer {
         choicePanel = new JPanel();
         choiceLabel = new JLabel();
         
+        dayLabel = new JLabel("Day 1");
         actionPointsLabel = new JLabel("AP: ");
         
         endTurnBtn = new JButton("End Turn");
@@ -158,6 +160,7 @@ public class GamePanel extends JPanel implements Observer {
         JPanel south = new JPanel();
         south.setPreferredSize(new Dimension(Constants.DIM_X_SOUTH, Constants.DIM_Y_SOUTH));
         south.setBorder(new LineBorder(Color.DARK_GRAY));
+        south.add(dayLabel);
         south.add(actionPointsLabel);
         south.add(endTurnBtn);
         
@@ -175,9 +178,12 @@ public class GamePanel extends JPanel implements Observer {
     
     @Override
     public void update(Observable o, Object o1) {
+        dayLabel.setText("Day " + (gameState.getGame().getDay()+1));
         actionPointsLabel.setText("AP: " + gameState.getGame().getAP());
         
         if (gameState.getState() instanceof AwaitDraw) {
+            System.out.println("CARDS IN DECK => " + gameState.getGame().getDeckSize());
+            
             eventPanel.setBack();
         
             choicePanel.setVisible(false);

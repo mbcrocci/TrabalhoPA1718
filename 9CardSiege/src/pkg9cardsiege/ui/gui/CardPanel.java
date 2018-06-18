@@ -1,9 +1,12 @@
 package pkg9cardsiege.ui.gui;
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -50,9 +53,6 @@ public class CardPanel extends JPanel implements Observer {
                 Constants.GAP_X_CARD + img.getWidth() + Constants.GAP_X_CARD,
                 Constants.GAP_Y_CARD + img.getHeight()  + Constants.GAP_X_CARD
         );
-        
-        System.out.println("IMG WIDTH: " + img.getWidth());
-        System.out.println("IMG HEIGHT: "+ img.getHeight());
         
         setPreferredSize(d);
         setMaximumSize(d);
@@ -120,6 +120,12 @@ public class CardPanel extends JPanel implements Observer {
             
         case ENEMIES_CARD:
             drawEnemiesCubes(g);
+            break;
+    
+        // Not exactly a cube, but its a good place to call this
+        case EVENT_CARD:
+            if (front)
+                drawDayBorder(g);
             break;
         }
     }
@@ -358,6 +364,35 @@ public class CardPanel extends JPanel implements Observer {
         
         g.setColor(Color.YELLOW);
         g.fillRect(x, y, width, height);
+    }
+    
+    public void drawDayBorder(Graphics g) {
+        int x = Constants.GAP_X_EVENT;
+        int width = Constants.DIM_X_EVENT;
+        int height = Constants.DIM_Y_EVENT;
+        int y = 0;
+        
+        Graphics2D g2 = (Graphics2D) g;
+        Stroke old = g2.getStroke();
+        g2.setStroke(new BasicStroke(2));
+        
+        
+        switch (gameState.getGame().getDay()) {
+        case 0:
+            y = Constants.GAP_Y_EVENT;
+            g.setColor(Color.YELLOW);
+            break;
+        case 1:
+            y = Constants.GAP_Y_EVENT + Constants.DIM_Y_EVENT + Constants.GAP_Y_EVENT_SPACE;
+            g.setColor(Color.CYAN);
+            break;
+        case 2:
+            y = Constants.GAP_Y_EVENT + (Constants.DIM_Y_EVENT + Constants.GAP_Y_EVENT_SPACE) * 2;
+            g.setColor(Color.GREEN);
+            break;
+        }
+        g2.drawRect(x, y, width, height);
+        g2.setStroke(old);
     }
     
     private class EventListener implements MouseListener {

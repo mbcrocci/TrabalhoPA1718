@@ -220,6 +220,10 @@ public class Game implements Serializable {
     public Boolean isDeckEmpty() {
         return deck.isEmpty();
     }
+    
+    public int getDeckSize() {
+        return deck.size();
+    }
 
     public EventCard drawCard() {
         currentEvent = deck.remove(0);

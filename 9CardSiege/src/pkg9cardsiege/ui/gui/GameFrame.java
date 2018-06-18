@@ -8,6 +8,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitStart;
+import pkg9cardsiege.contollers.states.GameOver;
 
 
 public class GameFrame extends JFrame implements Observer {
@@ -15,6 +16,7 @@ public class GameFrame extends JFrame implements Observer {
     private GameState gameState;
     private GamePanel gamePanel;
     private StartPanel startPanel;
+    private GameOverPanel gameOverPanel;
     
     private Container cp;
     
@@ -43,6 +45,7 @@ public class GameFrame extends JFrame implements Observer {
         
         startPanel = new StartPanel(gameState);
         gamePanel = new GamePanel(gameState);
+        gameOverPanel = new GameOverPanel(gameState);
         
         addComponents();
         
@@ -69,6 +72,11 @@ public class GameFrame extends JFrame implements Observer {
         if (!(gameState.getState() instanceof AwaitStart) ) {
             cp.remove(startPanel);
             cp.add(gamePanel, BorderLayout.CENTER);
+        }
+        
+        if (gameState.getState() instanceof GameOver) {
+            cp.removeAll();
+            cp.add(gameOverPanel, BorderLayout.CENTER);
         }
         
         gamePanel.update(gameState, null);

@@ -50,5 +50,11 @@ public class Constants {
     
     static final int GAP_Y_TREBU = 296;
     
+    static final int DIM_X_EVENT = 220;
+    static final int DIM_Y_EVENT = 100;
+    
+    static final int GAP_X_EVENT = 15;
+    static final int GAP_Y_EVENT = 15;
+    static final int GAP_Y_EVENT_SPACE = 8;
     
 }
