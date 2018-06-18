@@ -1,7 +1,9 @@
 package pkg9cardsiege.ui.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,8 +12,10 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitActionChoice;
 import pkg9cardsiege.contollers.states.AwaitDraw;
@@ -65,6 +69,8 @@ public class GamePanel extends JPanel implements Observer {
     private TunnelMovePanel tunnelMovPanel;
     private JPanel choicePanel;
     private JLabel choiceLabel;
+    private JLabel actionPointsLabel;
+    private JButton endTurnBtn;
 
         
     public GamePanel(GameState gameState) {
@@ -87,6 +93,11 @@ public class GamePanel extends JPanel implements Observer {
         
         choicePanel = new JPanel();
         choiceLabel = new JLabel();
+        
+        actionPointsLabel = new JLabel("AP: ");
+        
+        endTurnBtn = new JButton("End Turn");
+        endTurnBtn.addActionListener((e) -> gameState.endTurn());
     }
 
     private void setupLayout() {
@@ -141,8 +152,19 @@ public class GamePanel extends JPanel implements Observer {
         center.add(botBox);
         center.add(Box.createVerticalGlue());
         
+        center.setBorder(new LineBorder(Color.DARK_GRAY));
+        
+        
+        JPanel south = new JPanel();
+        south.setPreferredSize(new Dimension(Constants.DIM_X_SOUTH, Constants.DIM_Y_SOUTH));
+        south.setBorder(new LineBorder(Color.DARK_GRAY));
+        south.add(actionPointsLabel);
+        south.add(endTurnBtn);
+        
+        
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
+        add(south, BorderLayout.SOUTH);
     }
     
     public void swapChoicePanel(JPanel newPanel) {
@@ -153,10 +175,15 @@ public class GamePanel extends JPanel implements Observer {
     
     @Override
     public void update(Observable o, Object o1) {
-        if (gameState.getState() instanceof AwaitDraw)
+        actionPointsLabel.setText("AP: " + gameState.getGame().getAP());
+        
+        if (gameState.getState() instanceof AwaitDraw) {
             eventPanel.setBack();
         
-        if (gameState.getState() instanceof AwaitActionChoice) {
+            choicePanel.setVisible(false);
+            choiceLabel.setText("");
+        
+        } else if (gameState.getState() instanceof AwaitActionChoice) {
             swapChoicePanel(actionChoicePanel);
             choiceLabel.setText("Select Action");
         
@@ -168,10 +195,7 @@ public class GamePanel extends JPanel implements Observer {
             swapChoicePanel(tunnelMovPanel);
             choiceLabel.setText("Select Tunnel Movement");
         
-        } else {
-            choicePanel.setVisible(false);
-            choiceLabel.removeAll();
-        }
+        }   
         
         revalidate();
         repaint();

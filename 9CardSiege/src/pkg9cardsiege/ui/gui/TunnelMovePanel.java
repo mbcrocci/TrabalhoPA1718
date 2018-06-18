@@ -10,6 +10,7 @@ import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitTunnelMovChoice;
 
@@ -36,7 +37,6 @@ public class TunnelMovePanel extends JPanel implements Observer {
         setMaximumSize(d);
         setMinimumSize(d);
         
-        setBackground(Color.yellow);
         
         setupComponents();
         setupLayout();
@@ -63,22 +63,13 @@ public class TunnelMovePanel extends JPanel implements Observer {
     }
     
     public void setupLayout() {
-        Box box = Box.createVerticalBox();
-        box.add(Box.createVerticalGlue());
-        box.add(enterBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(exitBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(advanceBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(moveBackBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(fastMovementBtn);
-        box.add(Box.createVerticalGlue());
+        add(enterBtn);
+        add(exitBtn);
+        add(advanceBtn);
+        add(moveBackBtn);
+        add(fastMovementBtn);
         
-        setLayout(new BorderLayout());
-        
-        add(box, BorderLayout.CENTER);
+        setBorder(new LineBorder(Color.DARK_GRAY));
     }
     
     public class EnterListener implements ActionListener {

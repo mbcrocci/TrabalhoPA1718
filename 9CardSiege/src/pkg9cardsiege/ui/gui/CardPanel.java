@@ -12,6 +12,7 @@ import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitDraw;
 import pkg9cardsiege.models.cards.StatusCard;
@@ -57,12 +58,14 @@ public class CardPanel extends JPanel implements Observer {
         setMinimumSize(d);
         
         setBackground(Color.LIGHT_GRAY);
+        setBorder(new LineBorder(Color.DARK_GRAY));
         
         addMouseListener(new EventListener());
     }
     
     public void setBack() {
         front = false;
+        setImg();
     }
     
     public void setImg() {
@@ -73,8 +76,11 @@ public class CardPanel extends JPanel implements Observer {
                     
                 } else {
                     int cardNumber = gameState.getGame().getCurrentEvent().getNumber();
-                    img = GamePanel.getEventCardFrontImg(cardNumber);
-                }   break;
+                    
+                    if (cardNumber != 0)
+                        img = GamePanel.getEventCardFrontImg(cardNumber);
+                }
+                break;
                 
             case STATUS_CARD:
                 img = GamePanel.getStatusCardImg();
@@ -100,8 +106,7 @@ public class CardPanel extends JPanel implements Observer {
         super.paintComponent(g);
 
         if (img != null)
-            g.drawImage(
-                img, Constants.GAP_X_CARD, Constants.GAP_Y_CARD, null);
+            g.drawImage(img, Constants.GAP_X_CARD, Constants.GAP_Y_CARD, null);
         
         drawCubes(g);
     }
@@ -248,14 +253,13 @@ public class CardPanel extends JPanel implements Observer {
     private class EventListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent me) {
-            if (gameState.getState() instanceof AwaitDraw) {
-                
+            if (type == EVENT_CARD && gameState.getState() instanceof AwaitDraw) {
                 gameState.draw();
                 
                 front = true;
                 setImg();
                 
-                //notify();
+                //update(gameState, null);
             }
         }
 

@@ -12,6 +12,7 @@ import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitActionChoice;
 
@@ -47,7 +48,6 @@ public class ActionChoicePanel extends JPanel implements Observer {
         setMaximumSize(d);
         setMinimumSize(d);
         
-        setBackground(Color.yellow);
         
         setupComponents();
         setupLayout();
@@ -63,7 +63,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
         supplyRaidBtn       = new JButton("Supply Raid"); 
         sabotageBtn         = new JButton("Sabotage");
         additionalActionBtn = new JButton("Additional Action");
-        endTurnBtn          = new JButton("End Turn");
+        
         saveGame            = new JButton("Save Game");
         
         archersAtkBtn      .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
@@ -75,7 +75,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
         supplyRaidBtn      .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
         sabotageBtn        .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
         additionalActionBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
-        endTurnBtn         .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        
         saveGame           .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
         
         archersAtkBtn      .addActionListener(new ArchersAtkListener());
@@ -87,37 +87,36 @@ public class ActionChoicePanel extends JPanel implements Observer {
         supplyRaidBtn      .addActionListener(new SupplyRaidListener());
         sabotageBtn        .addActionListener(new SabotageListener());
         additionalActionBtn.addActionListener(new AdditionalActionListener());
-        endTurnBtn         .addActionListener(new EndTurnListener());
+        
         saveGame           .addActionListener(new SaveGameListener());
     }
     
     public void setupLayout() {
         
-        Box box = Box.createVerticalBox();
-        box.add(Box.createVerticalGlue());
-        box.add(archersAtkBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(boilingWaterAtkBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(ccaAtkBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(coupureBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(rallyBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(tunnelMovBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(supplyRaidBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(sabotageBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(additionalActionBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(endTurnBtn);
-        box.add(Box.createVerticalGlue());
+        //Box box = Box.createVerticalBox();
+        //box.add(Box.createVerticalGlue());
+        add(archersAtkBtn);
+        //box.add(Box.createVerticalGlue());
+        add(boilingWaterAtkBtn);
+        //box.add(Box.createVerticalGlue());
+        add(ccaAtkBtn);
+        //box.add(Box.createVerticalGlue());
+        add(coupureBtn);
+        //box.add(Box.createVerticalGlue());
+        add(rallyBtn);
+        //box.add(Box.createVerticalGlue());
+        add(tunnelMovBtn);
+        //box.add(Box.createVerticalGlue());
+        add(supplyRaidBtn);
+        //box.add(Box.createVerticalGlue());
+        add(sabotageBtn);
+        //box.add(Box.createVerticalGlue());
+        add(additionalActionBtn);
+        //box.add(Box.createVerticalGlue());
         
-        setLayout(new BorderLayout());
-        add(box, BorderLayout.CENTER);
+        //setLayout(new BorderLayout());
+        setBorder(new LineBorder(Color.DARK_GRAY));
+        //add(box, BorderLayout.CENTER);
     }
     
     @Override
@@ -175,12 +174,6 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class AdditionalActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-        }
-    }
-    private class EndTurnListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            gameState.endTurn();
         }
     }
     private class SaveGameListener implements ActionListener {

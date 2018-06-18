@@ -10,6 +10,7 @@ import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitTrackSelection;
 
@@ -34,8 +35,7 @@ public class TrackSelectPanel extends JPanel implements Observer{
         setPreferredSize(d);
         setMaximumSize(d);
         setMinimumSize(d);
-        
-        setBackground(Color.yellow);
+       
         
         setupComponents();
         setupLayout();
@@ -58,19 +58,12 @@ public class TrackSelectPanel extends JPanel implements Observer{
     }
     
     public void setupLayout() {
-        Box box = Box.createVerticalBox();
-        box.add(Box.createVerticalGlue());
+        add(wallBtn);
+        add(gatesBtn);
+        add(trebuBtn);
         
-        box.add(wallBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(gatesBtn);
-        box.add(Box.createVerticalGlue());
-        box.add(trebuBtn);
-        box.add(Box.createVerticalGlue());
-        
-        setLayout(new BorderLayout());
-        add(box, BorderLayout.CENTER);
-    }
+        setBorder(new LineBorder(Color.DARK_GRAY));
+}
     
     
     @Override
