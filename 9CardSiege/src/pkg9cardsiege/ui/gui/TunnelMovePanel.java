@@ -49,6 +49,12 @@ public class TunnelMovePanel extends JPanel implements Observer {
         moveBackBtn     = new JButton("Move Back (free or 1 AP)");
         fastMovementBtn = new JButton("FastMovement (1 AP)");
         
+        enterBtn       .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        exitBtn        .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        advanceBtn     .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        moveBackBtn    .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        fastMovementBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        
         enterBtn       .addActionListener(new EnterListener());
         exitBtn        .addActionListener(new ExitListener());
         advanceBtn     .addActionListener(new AdvanceListener());

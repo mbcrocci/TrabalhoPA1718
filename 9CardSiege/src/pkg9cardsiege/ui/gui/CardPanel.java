@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitDraw;
+import pkg9cardsiege.models.cards.StatusCard;
 
 
 public class CardPanel extends JPanel implements Observer {
@@ -47,6 +48,9 @@ public class CardPanel extends JPanel implements Observer {
                 Constants.GAP_X_CARD + img.getWidth() + Constants.GAP_X_CARD,
                 Constants.GAP_Y_CARD + img.getHeight()  + Constants.GAP_X_CARD
         );
+        
+        System.out.println("IMG WIDTH: " + img.getWidth());
+        System.out.println("IMG HEIGHT: "+ img.getHeight());
         
         setPreferredSize(d);
         setMaximumSize(d);
@@ -98,6 +102,147 @@ public class CardPanel extends JPanel implements Observer {
         if (img != null)
             g.drawImage(
                 img, Constants.GAP_X_CARD, Constants.GAP_Y_CARD, null);
+        
+        drawCubes(g);
+    }
+    
+    public void drawCubes(Graphics g) {
+        switch(this.type) {
+        case STATUS_CARD:
+            drawStatusCubes(g);
+            break;
+            
+        case ENEMIES_CARD:
+            drawEnemiesCubes(g);
+            break;
+        }
+    }
+    
+    public void drawStatusCubes(Graphics g) {
+        StatusCard sc = gameState.getGame().getStatusCard();
+        int x = 0, y = 0, width, height;
+        
+        width = Constants.DIM_X_CUBE;
+        height = Constants.DIM_Y_CUBE;
+        
+        switch (sc.getWallStrength()) {
+        case 0:
+            x = Constants.GAP_X_SURRENDER;
+            y = Constants.GAP_Y_SURRENDER;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+            break;
+        case 3:
+            x = Constants.GAP_X_TRACK;
+            y = Constants.GAP_Y_TRACK + Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE;
+            break;
+        case 4:
+            x = Constants.GAP_X_TRACK;
+            y = Constants.GAP_Y_TRACK;
+            break;
+        }
+        
+        g.setColor(Color.ORANGE);
+        g.fillRect(x, y, width, height);
+        
+        switch (sc.getMorale()) {
+        case 0:
+            x = Constants.GAP_X_SURRENDER;
+            y = Constants.GAP_Y_SURRENDER;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK + Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK + Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+            break;
+        case 3:
+            x = Constants.GAP_X_TRACK + Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
+            break;
+        case 4:
+            x = Constants.GAP_X_TRACK + Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE;
+            y = Constants.GAP_Y_TRACK;
+            break;
+        }
+        
+        g.setColor(Color.ORANGE);
+        g.fillRect(x, y, width, height);
+        
+        switch (sc.getFortressSupplies()) {
+        case 0:
+            x = Constants.GAP_X_SURRENDER;
+            y = Constants.GAP_Y_SURRENDER;
+            break;
+        case 1:
+            x = Constants.GAP_X_TRACK + (Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE) * 2;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+            break;
+        case 2:
+            x = Constants.GAP_X_TRACK + (Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE) * 2;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+            break;
+        case 3:
+            x = Constants.GAP_X_TRACK + (Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE) * 2;
+            y = Constants.GAP_Y_TRACK + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
+            break;
+        case 4:
+            x = Constants.GAP_X_TRACK + (Constants.GAP_X_TRACK_SPACE + Constants.DIM_X_CUBE) * 2;
+            y = Constants.GAP_Y_TRACK;
+            break;
+        }
+        
+        g.setColor(Color.ORANGE);
+        g.fillRect(x, y, width, height);
+        
+        if (sc.getTunnel().getPosition() != 0) {
+            y = Constants.GAP_Y_TUNNEL;
+            g.setColor(Color.BLUE);
+            
+            switch (sc.getTunnel().getPosition()) {
+                case 1:
+                    x = Constants.GAP_X_TUNNEL;
+                    break;
+                case 2:
+                    x = Constants.GAP_X_TUNNEL + Constants.DIM_X_CUBE;
+                    break;
+                case 3:
+                    x = Constants.GAP_X_TUNNEL + Constants.DIM_X_CUBE * 2;
+                    break;
+                case 4:
+                    x = Constants.GAP_X_TUNNEL + Constants.DIM_X_CUBE * 3;
+                    break;
+            }
+            
+            g.fillRect(x, y, width, height);
+        }
+        
+        if (sc.getSupplies() != 0) {
+            x = Constants.GAP_X_SUPPLIES;
+            g.setColor(Color.YELLOW);
+            
+            switch (sc.getSupplies()) {
+            case 1:
+                y = Constants.GAP_Y_SUPPLIES;
+                break;
+            case 2:
+                y = Constants.GAP_Y_SUPPLIES - Constants.DIM_Y_CUBE;
+            }
+            
+            g.fillRect(x, y, width, height);
+        }
+    }
+    
+    public void drawEnemiesCubes(Graphics g) {
+        
     }
     
     private class EventListener implements MouseListener {

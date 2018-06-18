@@ -43,13 +43,18 @@ public class TrackSelectPanel extends JPanel implements Observer{
     
     public void setupComponents() {
         wallBtn = new JButton("Wall");
-        wallBtn.addActionListener(new SelectWallListener());
-        
         gatesBtn = new JButton("Gates");
-        gatesBtn.addActionListener(new SelectGatesListener());
-        
         trebuBtn = new JButton("Trebuchets");
+        
+        wallBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        gatesBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        trebuBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        
+        wallBtn.addActionListener(new SelectWallListener());
+        gatesBtn.addActionListener(new SelectGatesListener());
         trebuBtn.addActionListener(new SelectTrebuListener());
+
+
     }
     
     public void setupLayout() {

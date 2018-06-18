@@ -66,8 +66,20 @@ public class ActionChoicePanel extends JPanel implements Observer {
         endTurnBtn          = new JButton("End Turn");
         saveGame            = new JButton("Save Game");
         
+        archersAtkBtn      .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        boilingWaterAtkBtn .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        ccaAtkBtn          .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        coupureBtn         .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        rallyBtn           .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        tunnelMovBtn       .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        supplyRaidBtn      .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        sabotageBtn        .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        additionalActionBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        endTurnBtn         .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        saveGame           .setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        
         archersAtkBtn      .addActionListener(new ArchersAtkListener());
-        boilingWaterAtkBtn  .addActionListener(new BoilngWaterAtkListener());
+        boilingWaterAtkBtn .addActionListener(new BoilngWaterAtkListener());
         ccaAtkBtn          .addActionListener(new CcaAtkListener());
         coupureBtn         .addActionListener(new CoupureListener());
         rallyBtn           .addActionListener(new RallyListener());
