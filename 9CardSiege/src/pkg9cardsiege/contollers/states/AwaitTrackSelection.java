@@ -19,7 +19,6 @@ public class AwaitTrackSelection extends StateAdapter {
     public IState selectTrack(int track) {
         getGame().setTrackChoice(track);
         
-        System.out.println("GOing to attack");
         if (attack == 0)
             this.archersAttack();
         
