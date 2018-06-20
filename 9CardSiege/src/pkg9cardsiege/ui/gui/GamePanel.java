@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Observer {
     private JLabel dayLabel;
     private JLabel actionPointsLabel;
     private JButton endTurnBtn;
+    private JLabel messagesLabel;
 
         
     public GamePanel(GameState gameState) {
@@ -100,6 +101,8 @@ public class GamePanel extends JPanel implements Observer {
         
         endTurnBtn = new JButton("End Turn");
         endTurnBtn.addActionListener((e) -> gameState.endTurn());
+        
+        messagesLabel = new JLabel("");
     }
 
     private void setupLayout() {
@@ -163,6 +166,7 @@ public class GamePanel extends JPanel implements Observer {
         south.add(dayLabel);
         south.add(actionPointsLabel);
         south.add(endTurnBtn);
+        south.add(messagesLabel);
         
         
         setLayout(new BorderLayout());
@@ -180,6 +184,19 @@ public class GamePanel extends JPanel implements Observer {
     public void update(Observable o, Object o1) {
         dayLabel.setText("Day " + (gameState.getGame().getDay()+1));
         actionPointsLabel.setText("AP: " + gameState.getGame().getAP());
+        
+        if (gameState.getMessages().size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Messages: ");
+            gameState.getMessages().forEach((msg) -> {
+                sb.append(msg).append("\n\t");
+            });
+            gameState.clearMessages();
+            
+            messagesLabel.setText(sb.toString());
+        } else {
+            messagesLabel.setText("");
+        }
         
         if (gameState.getState() instanceof AwaitDraw) {
             System.out.println("CARDS IN DECK => " + gameState.getGame().getDeckSize());

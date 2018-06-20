@@ -73,7 +73,20 @@ public class StateAdapter implements IState, Serializable {
     
     @Override
     public IState endTurn() {
-        return this;
+         // Victory or Loss Check Phase
+        if (getGame().victoryLossCheck()) {
+            return new GameOver(getGame());
+        }
+        
+        // End of Day Phase
+        if (getGame().isDeckEmpty())
+            getGame().endDay();
+        
+        if (getGame().getDay() == 3)
+            return new GameOver(getGame());
+        
+        getGame().setupTurn();
+        return new AwaitDraw(getGame());
     }
     
     @Override

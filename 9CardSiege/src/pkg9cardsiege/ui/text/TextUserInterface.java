@@ -18,8 +18,6 @@ public class TextUserInterface {
     private GameState gameState;
     private Scanner scanner;
     
-    private Boolean trackSelected = false;
-    
     private static final String FILENAME = "savedgame";
     
     public TextUserInterface(GameState gameState) {
@@ -158,11 +156,6 @@ public class TextUserInterface {
         
         value = scanner.nextInt();
         
-        if (value == 1 || value == 2)
-            if (!trackSelected) {
-                gameState.setState(new AwaitTrackSelection(gameState.getGame()));
-                return;
-            }
         
         switch (value) {
             case 1:
@@ -204,10 +197,6 @@ public class TextUserInterface {
                 }
                 break;
         } 
-        
-        // if it reached here it already performed the attack
-        // so, we can reset track selection
-        trackSelected = false;
     }
     
     private int getAAOption () {
@@ -252,7 +241,6 @@ public class TextUserInterface {
         value = scanner.nextInt();
         
         gameState.selectTrack(value);
-        trackSelected = true;
     }
     
     private void getUserInputWhileTunnelMovementChoice() {

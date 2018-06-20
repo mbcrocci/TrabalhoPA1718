@@ -13,70 +13,20 @@ public class AwaitActionChoice extends StateAdapter {
     
     @Override
     public IState archersAttack() {
-        Track track = getGame().getEnemyTrackCard().getTrack(
-                getGame().getTrackChoice()
-        );
-
-        // roll
-        int roll = getGame().getDice().roll();
-        
-        // apply drm
-        switch(getGame().getTrackChoice()) {
-            case 0: roll += getGame().getDRMS().get(DRM.LADDERS_ATK); break;
-            case 1: roll += getGame().getDRMS().get(DRM.BATTERY_RAM_ATK); break;
-            case 2: roll +=getGame().getDRMS().get(DRM.SIEGE_TOWER_ATK); break;
-        }
-        
-        
-        // check if track is on circle space so we can apply circle space drm
-        if (getGame().getEnemyTrackCard().inCircleSpace(track))
-            roll += getGame().getDRMS().get(DRM.CIRLCE_SPACES_ATK);
-        
-        getGame().addMessage("Roll: " + roll);
-        
-        // if roll bigger that trackStrength
-        if (roll > track.getStrength())
-            track.decrease();
-            
-        // if roll equal or less it does nothing
-        return this;
+        return new AwaitTrackSelection(getGame(), 0);
     }
     
     @Override
     public IState boilingWaterAttack() {
-        Track track = getGame().getEnemyTrackCard().getTrack(
-                getGame().getTrackChoice()
-        );
-        
-        if (!getGame().getEnemyTrackCard().inCircleSpace(track))
-            return this;
-        
-        int roll = getGame().getDice().roll();
-        
-        switch(getGame().getTrackChoice()) {
-            case 0: roll += getGame().getDRMS().get(DRM.LADDERS_ATK); break;
-            case 1: roll += getGame().getDRMS().get(DRM.BATTERY_RAM_ATK); break;
-            case 2: roll += getGame().getDRMS().get(DRM.SIEGE_TOWER_ATK); break;
-        }
-        
-        if (getGame().getEnemyTrackCard().inCircleSpace(track))
-            roll += getGame().getDRMS().get(DRM.CIRLCE_SPACES_ATK);
-        
-        // check if roll with drm is 1. if so it fails
-        if (roll == 1)
-            return this;
-        
-        // apply automatic drm
-        roll++;
-        getGame().addMessage("Roll: " + roll);
-        if (roll > track.getStrength())
-            track.decrease();
-        
-        return this;
+        return new AwaitTrackSelection(getGame(), 1);
     }
     
     @Override
     public IState closeCombat() {
+        if (!getGame().useAP()) {
+            getGame().addMessage("Nao tem AP para usar. Acabe o turno.");
+            return new AwaitActionChoice(getGame());
+        }
         ArrayList<Track> tracks = new ArrayList<>();
         
         if (getGame().getEnemyTrackCard().getGates() == 0)
@@ -110,6 +60,11 @@ public class AwaitActionChoice extends StateAdapter {
     
     @Override
     public IState coupure() {
+        if (!getGame().useAP()) {
+            getGame().addMessage("Nao tem AP para usar. Acabe o turno.");
+            return new AwaitActionChoice(getGame());
+        }
+        
         int roll = getGame().getDice().roll() + getGame().getDRMS().get(DRM.COUPURE_ACT);
         
         if (roll > 4)
@@ -120,6 +75,11 @@ public class AwaitActionChoice extends StateAdapter {
     
     @Override
     public IState rallyTroops(Boolean applyDRM) {
+        if (!getGame().useAP()) {
+            getGame().addMessage("Nao tem AP para usar. Acabe o turno.");
+            return new AwaitActionChoice(getGame());
+        }
+        
         int roll = 0;
         
         if (applyDRM) {
@@ -137,6 +97,11 @@ public class AwaitActionChoice extends StateAdapter {
     
     @Override
     public IState supplyRaid() {
+        if (!getGame().useAP()) {
+            getGame().addMessage("Nao tem AP para usar. Acabe o turno.");
+            return new AwaitActionChoice(getGame());
+        }
+        
         if (getGame().getStatusCard().getSupplies() == 2)
             return this;
         
@@ -162,6 +127,10 @@ public class AwaitActionChoice extends StateAdapter {
     
     @Override
     public IState sabotage() {
+        if (!getGame().useAP()) {
+            getGame().addMessage("Nao tem AP para usar. Acabe o turno.");
+            return new AwaitActionChoice(getGame());
+        }
         // if no unit on Enemy Lines
         if (getGame().getStatusCard().getTunnel().getPosition() != 3)
             return this;
@@ -177,23 +146,6 @@ public class AwaitActionChoice extends StateAdapter {
         return this;
     }
     
-    @Override
-    public IState endTurn() {
-         // Victory or Loss Check Phase
-        if (getGame().victoryLossCheck()) {
-            return new GameOver(getGame());
-        }
-        
-        // End of Day Phase
-        if (getGame().isDeckEmpty())
-            getGame().endDay();
-        
-        if (getGame().getDay() == 3)
-            return new GameOver(getGame());
-        
-        getGame().setupTurn();
-        return new AwaitDraw(getGame());
-    }
     
     @Override
     public IState additionalAction(int op) {

@@ -62,6 +62,7 @@ public class Game implements Serializable {
         drms.put(DRM.MORALE_ACT, 0);
         drms.put(DRM.COUPURE_ACT, 0);
         drms.put(DRM.RAID_ACT, 0);
+        drms.put(DRM.LADDERS_ATK, 0);
         drms.put(DRM.BATTERY_RAM_ATK, 0);
         drms.put(DRM.SIEGE_TOWER_ATK, 0);
         drms.put(DRM.SIEGE_ENGINE_ATK, 0);

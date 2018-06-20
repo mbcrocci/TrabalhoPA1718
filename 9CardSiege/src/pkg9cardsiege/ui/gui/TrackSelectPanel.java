@@ -21,7 +21,7 @@ public class TrackSelectPanel extends JPanel implements Observer{
     
     private JButton wallBtn;
     private JButton gatesBtn;
-    private JButton trebuBtn;
+    private JButton siegeBtn;
     
     public TrackSelectPanel(GameState gameState) {
         this.gameState = gameState;
@@ -44,15 +44,15 @@ public class TrackSelectPanel extends JPanel implements Observer{
     public void setupComponents() {
         wallBtn = new JButton("Wall");
         gatesBtn = new JButton("Gates");
-        trebuBtn = new JButton("Trebuchets");
+        siegeBtn = new JButton("Siege Towers");
         
         wallBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
         gatesBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
-        trebuBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
+        siegeBtn.setPreferredSize(new Dimension(Constants.DIM_MENU_BTN_X, Constants.DIM_MENU_BTN_Y));
         
         wallBtn.addActionListener(new SelectWallListener());
         gatesBtn.addActionListener(new SelectGatesListener());
-        trebuBtn.addActionListener(new SelectTrebuListener());
+        siegeBtn.addActionListener(new SelectTrebuListener());
 
 
     }
@@ -60,7 +60,7 @@ public class TrackSelectPanel extends JPanel implements Observer{
     public void setupLayout() {
         add(wallBtn);
         add(gatesBtn);
-        add(trebuBtn);
+        add(siegeBtn);
         
         setBorder(new LineBorder(Color.DARK_GRAY));
 }
@@ -71,22 +71,25 @@ public class TrackSelectPanel extends JPanel implements Observer{
         setVisible(gameState.getState() instanceof AwaitTrackSelection);
     }
 
-    private static class SelectWallListener implements ActionListener {
+    private class SelectWallListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.selectTrack(0);
         }
     }
 
-    private static class SelectGatesListener implements ActionListener {
+    private class SelectGatesListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.selectTrack(1);
         }
     }
 
-    private static class SelectTrebuListener implements ActionListener {
+    private class SelectTrebuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.selectTrack(2);
         }
     }
 }

@@ -127,6 +127,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class ArchersAtkListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.archersAttack();
         }
         
     }
@@ -134,6 +135,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class BoilngWaterAtkListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.boilingWaterAttack();
         }
         
     }
