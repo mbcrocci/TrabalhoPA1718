@@ -48,7 +48,10 @@ public class EnemyTrackCard extends Card {
     }
 
     public int getSiegeTower() {
-        return siegeTower.getValue();
+        if (siegeTower == null)
+            return siegeTower.getValue();
+        else
+            return -1;
     }
     
     public void advanceSiegeTower() {
@@ -72,7 +75,8 @@ public class EnemyTrackCard extends Card {
         int enemiesInCCA = 0;
         if (wall.getValue() == 0) enemiesInCCA += 1;
         if (gates.getValue() == 0) enemiesInCCA += 1;
-        if (siegeTower.getValue() == 0) enemiesInCCA += 1;
+        if (siegeTower != null)
+            if (siegeTower.getValue() == 0) enemiesInCCA += 1;
         
         return enemiesInCCA;
     }

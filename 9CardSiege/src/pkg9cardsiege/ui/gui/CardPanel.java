@@ -318,31 +318,33 @@ public class CardPanel extends JPanel implements Observer {
         width = Constants.DIM_X_CUBE;
         height = Constants.DIM_Y_CUBE;
         
-        switch (ec.getSiegeTower()) {
-        case 0:
-            x = Constants.GAP_X_CCA;
-            y = Constants.GAP_Y_CCA;
-            width = Constants.DIM_X_CCA;
-            break;
-        case 1:
-            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
-            y = Constants.GAP_Y_TRACK_E;
-            break;
-        case 2:
-            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
-            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
-            break;
-        case 3:
-            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
-            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
-            break;
-        case 4:
-            x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
-            y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+        if (ec.getSiegeTower() != -1) {
+            switch (ec.getSiegeTower()) {
+            case 0:
+                x = Constants.GAP_X_CCA;
+                y = Constants.GAP_Y_CCA;
+                width = Constants.DIM_X_CCA;
+                break;
+            case 1:
+                x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+                y = Constants.GAP_Y_TRACK_E;
+                break;
+            case 2:
+                x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+                y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 1;
+                break;
+            case 3:
+                x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+                y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 2;
+                break;
+            case 4:
+                x = Constants.GAP_X_TRACK_E + (Constants.DIM_X_CUBE + Constants.GAP_X_TRACK_SPACE_E) * 2;
+                y = Constants.GAP_Y_TRACK_E + (Constants.DIM_Y_CUBE + Constants.GAP_Y_TRACK_SPACE) * 3;
+            }
+
+            g.setColor(Color.RED);
+            g.fillRect(x, y, width, height);
         }
-        
-        g.setColor(Color.RED);
-        g.fillRect(x, y, width, height);
         
         width = Constants.DIM_X_CUBE;
         height = Constants.DIM_Y_CUBE;
