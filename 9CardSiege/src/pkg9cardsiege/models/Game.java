@@ -248,11 +248,14 @@ public class Game implements Serializable {
     }
     
     public void aditionalAction(int option) {
-        if (option == 0)
+        if (option == 0) {
             statusCard.decreaseMorale();
+            addAP(1);
         
-        else if (option == 1)
+        }else if (option == 1) {
             statusCard.decreaseFortressSupplies();     
+            addAP(1);
+        }
     }
     
     public void capture() {

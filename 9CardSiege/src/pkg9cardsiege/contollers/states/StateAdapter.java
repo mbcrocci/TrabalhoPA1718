@@ -95,6 +95,11 @@ public class StateAdapter implements IState, Serializable {
     }
     
     @Override
+    public IState additionalAction() {
+        return this;
+    }
+    
+    @Override
     public IState additionalAction(int op) {
         return this;
     }

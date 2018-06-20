@@ -176,6 +176,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class AdditionalActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.additionalAction();
         }
     }
     private class SaveGameListener implements ActionListener {

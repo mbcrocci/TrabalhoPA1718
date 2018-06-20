@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitActionChoice;
+import pkg9cardsiege.contollers.states.AwaitAdditionalActionChoice;
 import pkg9cardsiege.contollers.states.AwaitDraw;
 import pkg9cardsiege.contollers.states.AwaitTrackSelection;
 import pkg9cardsiege.contollers.states.AwaitTunnelMovChoice;
@@ -67,6 +68,7 @@ public class GamePanel extends JPanel implements Observer {
     private ActionChoicePanel actionChoicePanel;
     private TrackSelectPanel trackSelectionPanel;
     private TunnelMovePanel tunnelMovPanel;
+    private AdditionalActionPanel additionalActionPanel;
     private JPanel choicePanel;
     private JLabel choiceLabel;
     private JLabel dayLabel;
@@ -92,6 +94,7 @@ public class GamePanel extends JPanel implements Observer {
         actionChoicePanel = new ActionChoicePanel(gameState);
         trackSelectionPanel = new TrackSelectPanel(gameState);
         tunnelMovPanel = new TunnelMovePanel(gameState);
+        additionalActionPanel = new AdditionalActionPanel(gameState);
         
         choicePanel = new JPanel();
         choiceLabel = new JLabel();
@@ -218,7 +221,10 @@ public class GamePanel extends JPanel implements Observer {
             swapChoicePanel(tunnelMovPanel);
             choiceLabel.setText("Select Tunnel Movement");
         
-        }   
+        } else if (gameState.getState() instanceof AwaitAdditionalActionChoice) {
+            swapChoicePanel(additionalActionPanel);
+            choiceLabel.setText("Spend Morale or Supply?");
+        }
         
         revalidate();
         repaint();

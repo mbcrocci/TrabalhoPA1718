@@ -116,6 +116,13 @@ public class GameState extends Observable implements Serializable {
         notifyObservers();
     }
     
+    public void additionalAction() {
+        setState(getState().additionalAction());
+        
+        setChanged();
+        notifyObservers();
+    }
+    
     public void additionalAction(int op) {
         setState(getState().additionalAction(op));
         

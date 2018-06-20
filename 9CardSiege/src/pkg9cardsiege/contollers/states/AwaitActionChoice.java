@@ -148,12 +148,8 @@ public class AwaitActionChoice extends StateAdapter {
     
     
     @Override
-    public IState additionalAction(int op) {
-        
-        if (op > 0)
-            getGame().aditionalAction(op);
-        
-        return new AwaitActionChoice(getGame());
+    public IState additionalAction() {
+        return new AwaitAdditionalActionChoice(getGame());
     }
     
     @Override
