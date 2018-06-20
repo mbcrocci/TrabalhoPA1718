@@ -74,25 +74,8 @@ public class AwaitActionChoice extends StateAdapter {
     }
     
     @Override
-    public IState rallyTroops(Boolean applyDRM) {
-        if (!getGame().useAP()) {
-            getGame().addMessage("Nao tem AP para usar. Acabe o turno.");
-            return new AwaitActionChoice(getGame());
-        }
-        
-        int roll = 0;
-        
-        if (applyDRM) {
-            getGame().getStatusCard().getFortressSupplies();
-            roll = getGame().getDRMS().get(DRM.MORALE_ACT);
-        }
-        
-        roll += getGame().getDice().roll();
-        
-        if (roll > 4)
-            getGame().getStatusCard().increaseMorale();
-        
-        return this;
+    public IState rallyTroops() {
+        return new AwaitRallyTroops(game);
     }
     
     @Override

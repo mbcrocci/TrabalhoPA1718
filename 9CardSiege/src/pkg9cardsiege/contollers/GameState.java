@@ -95,8 +95,15 @@ public class GameState extends Observable implements Serializable {
         notifyObservers();
     }
     
-    public void rallyTroops(Boolean applyDRM) {
-       setState(getState().rallyTroops(applyDRM));
+    public void rallyTroops() {
+       setState(getState().rallyTroops());
+       
+       setChanged();
+        notifyObservers();
+    }
+    
+    public void rallyTroops(Boolean c) {
+       setState(getState().rallyTroops(c));
        
        setChanged();
         notifyObservers();

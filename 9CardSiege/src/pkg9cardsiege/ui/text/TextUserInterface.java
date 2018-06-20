@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 import pkg9cardsiege.contollers.GameState;
 import pkg9cardsiege.contollers.states.AwaitActionChoice;
+import pkg9cardsiege.contollers.states.AwaitAdditionalActionChoice;
+import pkg9cardsiege.contollers.states.AwaitRallyTroops;
 import pkg9cardsiege.contollers.states.AwaitDraw;
 import pkg9cardsiege.contollers.states.AwaitStart;
 import pkg9cardsiege.contollers.states.AwaitTrackSelection;
@@ -90,6 +92,12 @@ public class TextUserInterface {
             
             else if (gameState.getState() instanceof AwaitTrackSelection)
                 getUserInputWhileAwaitngTrackSelection();
+            
+            else if (gameState.getState() instanceof AwaitAdditionalActionChoice)
+                getUserInputWhileAwaitingAdditionalChoice();
+            
+            else if (gameState.getState() instanceof AwaitRallyTroops)
+                getUserInputWhileAwaitingApplyDRM();
         }
     }
     
@@ -171,7 +179,7 @@ public class TextUserInterface {
                 gameState.coupure();
                 break;
             case 5:
-                gameState.rallyTroops(applyDRM());
+                gameState.rallyTroops();
                 break;
             case 6:
                 gameState.tunnelMovement();
@@ -183,7 +191,7 @@ public class TextUserInterface {
                 gameState.sabotage();
                 break;
             case 9:
-                gameState.additionalAction(getAAOption());
+                gameState.additionalAction();
                 break;
             case 10:
                 gameState.endTurn();
@@ -199,7 +207,7 @@ public class TextUserInterface {
         } 
     }
     
-    private int getAAOption () {
+    private void getUserInputWhileAwaitingAdditionalChoice() {
         System.out.println("Do you wish to spend 1 morale or 1 supply?");
         System.out.println("1 - morale");
         System.out.println("2 - supply");
@@ -210,13 +218,10 @@ public class TextUserInterface {
         
         int op = scanner.nextInt();
         
-        if (op == 1) return 0;
-        else if (op == 2) return 1;
-        
-        return -1;
+        gameState.additionalAction(op);
     }
     
-    private Boolean applyDRM() {
+    private void getUserInputWhileAwaitingApplyDRM() {
         System.out.println("Do you wish to spend 1 supply to applay +1 DRM in moralle roll?");
         System.out.println(">> ");
         
@@ -224,7 +229,9 @@ public class TextUserInterface {
             scanner.next();
         
         String s = scanner.nextLine();
-        return s.equalsIgnoreCase("Y") || s.equalsIgnoreCase("S");
+        gameState.rallyTroops(
+            s.equalsIgnoreCase("Y") || s.equalsIgnoreCase("S")
+        );
     }
     
     private void getUserInputWhileAwaitngTrackSelection() {

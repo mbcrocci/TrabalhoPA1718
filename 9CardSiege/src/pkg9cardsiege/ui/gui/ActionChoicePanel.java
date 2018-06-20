@@ -93,30 +93,17 @@ public class ActionChoicePanel extends JPanel implements Observer {
     
     public void setupLayout() {
         
-        //Box box = Box.createVerticalBox();
-        //box.add(Box.createVerticalGlue());
         add(archersAtkBtn);
-        //box.add(Box.createVerticalGlue());
         add(boilingWaterAtkBtn);
-        //box.add(Box.createVerticalGlue());
         add(ccaAtkBtn);
-        //box.add(Box.createVerticalGlue());
         add(coupureBtn);
-        //box.add(Box.createVerticalGlue());
         add(rallyBtn);
-        //box.add(Box.createVerticalGlue());
         add(tunnelMovBtn);
-        //box.add(Box.createVerticalGlue());
         add(supplyRaidBtn);
-        //box.add(Box.createVerticalGlue());
         add(sabotageBtn);
-        //box.add(Box.createVerticalGlue());
         add(additionalActionBtn);
-        //box.add(Box.createVerticalGlue());
         
-        //setLayout(new BorderLayout());
         setBorder(new LineBorder(Color.DARK_GRAY));
-        //add(box, BorderLayout.CENTER);
     }
     
     @Override
@@ -143,6 +130,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class CcaAtkListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.closeCombat();
         }
         
     }
@@ -150,11 +138,13 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class CoupureListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.coupure();
         }
     }
     private class RallyListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.rallyTroops();
         }
     }
     private class TunnelMovBListener implements ActionListener {
@@ -171,6 +161,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class SabotageListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
+            gameState.sabotage();
         }
     }
     private class AdditionalActionListener implements ActionListener {
@@ -182,7 +173,7 @@ public class ActionChoicePanel extends JPanel implements Observer {
     private class SaveGameListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent ae) {
-           
+           gameState.save();
         }
     }
 }

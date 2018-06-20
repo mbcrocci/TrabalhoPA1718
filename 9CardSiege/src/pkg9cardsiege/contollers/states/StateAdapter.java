@@ -57,7 +57,12 @@ public class StateAdapter implements IState, Serializable {
     }
     
     @Override
-    public IState rallyTroops(Boolean applyDRM) {
+    public IState rallyTroops() {
+        return this;
+    }
+    
+    @Override
+    public IState rallyTroops(Boolean c) {
         return this;
     }
     
@@ -93,6 +98,7 @@ public class StateAdapter implements IState, Serializable {
     public IState tunnelMovement() {
         return this;
     }
+    
     
     @Override
     public IState additionalAction() {
