@@ -205,8 +205,6 @@ public class GamePanel extends JPanel implements Observer {
         }
         
         if (gameState.getState() instanceof AwaitDraw) {
-            System.out.println("CARDS IN DECK => " + gameState.getGame().getDeckSize());
-            
             eventPanel.setBack();
         
             choicePanel.setVisible(false);

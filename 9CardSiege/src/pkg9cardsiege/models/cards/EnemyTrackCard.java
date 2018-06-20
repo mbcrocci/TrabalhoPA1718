@@ -48,7 +48,7 @@ public class EnemyTrackCard extends Card {
     }
 
     public int getSiegeTower() {
-        if (siegeTower == null)
+        if (siegeTower != null)
             return siegeTower.getValue();
         else
             return -1;

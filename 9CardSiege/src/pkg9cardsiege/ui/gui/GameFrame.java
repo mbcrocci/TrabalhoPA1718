@@ -67,8 +67,7 @@ public class GameFrame extends JFrame implements Observer {
     }
     
     @Override
-    public void update(Observable t, Object o) {        
-        System.out.println("UPDATING. STATE => " + gameState.getState());
+    public void update(Observable t, Object o) {
         if (!(gameState.getState() instanceof AwaitStart) ) {
             cp.remove(startPanel);
             cp.add(gamePanel, BorderLayout.CENTER);
