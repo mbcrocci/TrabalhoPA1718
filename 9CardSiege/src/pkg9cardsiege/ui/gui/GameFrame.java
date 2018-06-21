@@ -66,6 +66,7 @@ public class GameFrame extends JFrame implements Observer {
         
         setLocation(x, y);
         setSize(width, height);
+        setPreferredSize(new Dimension(width, height));
         //setMinimumSize(new Dimension(width, height));
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
